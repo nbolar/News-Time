@@ -7,17 +7,73 @@
 //
 
 import UIKit
+import Network
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Override point for customization after application launch
+        downloadNewsArticles()
+        getSources()
         return true
     }
+    
+    
+    func downloadNewsArticles(){ 
+        NewsService.instance.downloadNewsDetails {
+            NotificationCenter.default.post(name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
+        }
+    }
+    func getSources()
+    {
+        NewsService.instance.downloadSourceDetails {
+            NotificationCenter.default.post(name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
+        }
+    }
+    
+    func dialogOKCancel(question: String, text: String){
+        let alertController = UIAlertController (title: "No Internet Connection", message: "Please turn on Mobile Data or connect to a Wi-Fi network.", preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Open Settings",
+                                      style: UIAlertAction.Style.default,
+                                      handler: openSettings))
+        alertController.addAction(UIAlertAction(title: "Cancel",
+                                      style: UIAlertAction.Style.default,
+                                      handler: nil))
+        
+        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+        
+        alertWindow.rootViewController = UIViewController()
+        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+        alertWindow.makeKeyAndVisible()
+        
+        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+
+    }
+    
+    func openSettings(alert: UIAlertAction!) {
+        if let url = URL.init(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+//    private func setUpSplashScreen(){
+//        let launchScreenVC = UIStoryboard.init(name: "Main", bundle: nil)
+//        let rootVC = launchScreenVC.instantiateViewController(withIdentifier: "launch")
+//        self.window?.rootViewController = rootVC
+//        self.window?.makeKeyAndVisible()
+//        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(dismissSelf), userInfo: nil, repeats: false)
+//    }
+//
+//    @objc func dismissSelf(){
+//        let mainVC = UIStoryboard.init(name: "Main", bundle: nil)
+//        let rootVC = mainVC.instantiateViewController(withIdentifier: "initialView")
+//        self.window?.rootViewController = rootVC
+//        self.window?.makeKeyAndVisible()
+//    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -40,7 +96,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
