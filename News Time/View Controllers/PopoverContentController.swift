@@ -27,6 +27,8 @@ class PopoverContentController: UIViewController {
         super.viewDidLoad()
         tableView.dataSource = self
         tableView.delegate = self
+        self.view.layer.cornerRadius = 8
+        self.view.layer.backgroundColor = UIColor.black.cgColor
         
 
         // Do any additional setup after loading the view.

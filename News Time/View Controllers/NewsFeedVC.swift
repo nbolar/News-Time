@@ -132,10 +132,12 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier: "PopoverContentController") as? PopoverContentController
         popoverContentController?.modalPresentationStyle = .popover
         popoverContentController?.preferredContentSize = CGSize(width: 155, height: 300)
+    
         /* 3 */
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .up
             popoverPresentationController.barButtonItem = self.countryButton
+            popoverPresentationController.backgroundColor = .black
             
 //            popoverPresentationController.sourceView = self.countryButton
 //            popoverPresentationController.sourceRect = countryButton.frame
@@ -163,10 +165,12 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
             popoverPresentationController.sourceView = self.sourcesButton
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.delegate = self
+            popoverPresentationController.backgroundColor = .black
+            
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
             if let popoverController = popoverContentController {
-
+                
                 present(popoverController, animated: true, completion: nil)
                 
                 

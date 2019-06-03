@@ -8,16 +8,29 @@
 
 import UIKit
 import Network
+import Network
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
+    let monitor = NWPathMonitor()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch
         downloadNewsArticles()
         getSources()
+        monitor.pathUpdateHandler = { path in
+            if path.status == .satisfied{
+                
+            } else {
+                self.dialogOKCancel()
+            }
+        }
+        
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
+        
         return true
     }
     
@@ -34,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }
     }
     
-    func dialogOKCancel(question: String, text: String){
+    func dialogOKCancel(){
         let alertController = UIAlertController (title: "No Internet Connection", message: "Please turn on Mobile Data or connect to a Wi-Fi network.", preferredStyle: .alert)
         
         alertController.addAction(UIAlertAction(title: "Open Settings",
