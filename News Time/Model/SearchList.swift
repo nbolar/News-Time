@@ -1,27 +1,27 @@
 //
-//  NewsList.swift
+//  SearchList.swift
 //  News Time
 //
-//  Created by Nikhil Bolar on 5/30/19.
+//  Created by Nikhil Bolar on 6/7/19.
 //  Copyright © 2019 Nikhil Bolar. All rights reserved.
 //
 
 import Foundation
 import SwiftyJSON
 
-var headlines = [String]()
-var content = [String]()
-var images = [String]()
-var dates = [String]()
-var contentURL = [String]()
-var contentDescription = [String]()
 
-class NewsList{
+var searchHeadlines = [String]()
+var searchContent = [String]()
+var searchImages = [String]()
+var searchDates = [String]()
+var searchContentURL = [String]()
+var searchDescription = [String]()
+class SearchList{
     
     fileprivate var _newsHeadline: String!
     fileprivate var _newsProvider: String!
     fileprivate var _imageURL: String!
-    
+    fileprivate var _datePosted: String!
     
     
     var newsHeadline: String {
@@ -48,48 +48,49 @@ class NewsList{
         }
     }
     
+    var datePosted: String {
+        get{
+            return _datePosted
+        } set {
+            _datePosted = newValue
+        }
+    }
     
-
     
     
-    class func loadNewsFromData(_ APIData: Data) -> [NewsList]{
-        headlines.removeAll()
-        content.removeAll()
-        images.removeAll()
-        contentURL.removeAll()
-        contentDescription.removeAll()
+    
+    
+    class func loadNewsFromData(_ APIData: Data) -> [SearchList]{
+        searchHeadlines.removeAll()
+        searchImages.removeAll()
+        searchContentURL.removeAll()
+        searchContent.removeAll()
+        searchDescription.removeAll()
         
-        var news = [NewsList]()
+        var news = [SearchList]()
         
         let json = try! JSON(data: APIData)
         
         if let list = json["articles"].array{
             for article in list
             {
-                let dayNews = NewsList()
+                let dayNews = SearchList()
                 dayNews.newsHeadline = (article["title"].stringValue)
-                headlines.append(article["title"].stringValue)
-                contentDescription.append(article["description"].stringValue)
-                content.append(article["content"].stringValue)
+                searchHeadlines.append(article["title"].stringValue)
+                searchDescription.append(article["description"].stringValue)
+                searchContent.append(article["content"].stringValue)
                 dayNews.newsProvider = (article["source"]["name"].stringValue)
                 dayNews.imageURL = article["urlToImage"].stringValue
-                contentURL.append(article["url"].stringValue)
-                images.append(article["urlToImage"].stringValue)
+                searchContentURL.append(article["url"].stringValue)
+                searchImages.append(article["urlToImage"].stringValue)
                 
                 
                 let publishedTime = article["publishedAt"].stringValue
-                dayNews.newsProvider = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
+                dayNews.datePosted = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
                 
-                
-                
-//                let date = day["time"].doubleValue
-//                let unixConvertedDate = Date(timeIntervalSince1970: date)
-//                dayForecast.date = unixConvertedDate.dayOfTheWeek()
                 news.append(dayNews)
             }
         }
         return news
     }
-    
-    
 }

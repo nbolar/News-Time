@@ -82,6 +82,8 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         
         
         
+        
+        
         navigationItem.title = "News Feed"
         
         collectionView.addSubview(refreshControl)
@@ -197,7 +199,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
     
     
     
-    @IBAction func refreshButtonClicked(_ sender: Any) {
+    @IBAction func refreshButtonClicked(_ sender: UIButton) {
         let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
         anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
         anim.duration = 0.8
@@ -212,6 +214,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         label.isHidden = false
         view.addSubview(label)
     }
+    
     
     @objc private func refreshNewsFeed(_ sender: Any) {
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
@@ -228,7 +231,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         self.refreshControl.endRefreshing()
         refreshButton.isEnabled = true
         let indepath = IndexPath(row: 0, section: 0)
-        collectionView.scrollToItem(at: indepath, at: .top, animated: true)
+//        collectionView.scrollToItem(at: indepath, at: .top, animated: true)
         
     }
     @objc func buttonAction(_ sender:UIButton!)
@@ -316,10 +319,31 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detailNewsSegue"{
             if let vc = segue.destination as? DetailNewsVC{
+                viewControllerClicked = 0
                 guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexpath = self.collectionView?.indexPath(for: cell) else { return }
                 vc.articleHeadlineString = headlines[indexpath.row]
-                vc.articleContentString = content[indexpath.row]
+                if content[indexpath.row] != "" && contentDescription[indexpath.row] != ""
+                {
+                    if contentDescription[indexpath.row][0...10] == content[indexpath.row][0...10]{
+                        if content[indexpath.row].count > 259{
+                            vc.articleContentString = content[indexpath.row][0..<259]
+                        }else{
+                            vc.articleContentString = content[indexpath.row]
+                        }
+                    }else{
+                        if content[indexpath.row].count > 259{
+                            vc.articleContentString = "\(contentDescription[indexpath.row])\n" + "\(content[indexpath.row][0..<259])"
+                        }else{
+                            vc.articleContentString = "\(contentDescription[indexpath.row])\n" + "\(content[indexpath.row])"
+                        }
+
+                    }
+                }else{
+                    vc.articleContentString = "\(contentDescription[indexpath.row])\n" + "\(content[indexpath.row])"
+                }
+
+               
                 vc.imageURL = images[indexpath.row]
                 vc.urlToArticle = contentURL[indexpath.row]
             }

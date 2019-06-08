@@ -13,6 +13,7 @@ class NewsService{
     
     static let instance = NewsService()
     fileprivate var _newsList = [NewsList]()
+    fileprivate var _searchList = [SearchList]()
     
     
     var newsList: [NewsList]{
@@ -20,6 +21,14 @@ class NewsService{
             return _newsList
         } set {
             _newsList = newValue
+        }
+    }
+    
+    var searchList: [SearchList]{
+        get{
+            return _searchList
+        } set {
+            _searchList = newValue
         }
     }
     
@@ -56,6 +65,25 @@ class NewsService{
             if response.data != nil{
                 
                 SourceList.loadSourceFromData(response.data!)
+                
+            }
+            completed()
+        }
+    }
+    
+    func downloadListSearchDetails (completed: @escaping DownloadComplete)
+    {
+        
+        let url = URL(string: SEARCH_BASE_API_URL)
+//        AF.request(url!).responseJSON { (response) in
+//            print(response)
+//        }
+        
+        AF.request(url!).responseData { (response) in
+            
+            if response.data != nil{
+                
+                self.searchList = SearchList.loadNewsFromData(response.data!)
                 
             }
             completed()

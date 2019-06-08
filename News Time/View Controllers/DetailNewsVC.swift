@@ -10,6 +10,8 @@ import UIKit
 import Hero
 import SafariServices
 
+var viewControllerClicked = 0
+
 class DetailNewsVC: UIViewController {
 
     
@@ -28,26 +30,22 @@ class DetailNewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let timeInterval = 0.5
         backButton.hero.modifiers = [.fade, .translate(x: 0, y: -150, z: 0), .duration(1)]
         
         newsArticleImage.hero.modifiers = [.translate(x: 0, y: 75, z: 0), .duration(timeInterval)]
         articleHeadline.hero.modifiers = [.scale(1.2), .duration(1)]
         newsArticleContent.hero.modifiers = [.scale(1.2), .duration(1)]
-//        openURLButton.hero.modifiers = [.scale(1.2), .duration(1)]
         openURLButton.layer.cornerRadius = 10
         
         openURLButton.setTitle("Read the entire article ⟶", for: .normal)
+        newsArticleContent.textColor = .lightGray
         
         
         
         articleHeadline.text = articleHeadlineString
-        if articleContentString.count > 259  {
-            newsArticleContent.text = articleContentString[0..<259]
-        }else {
-            newsArticleContent.text = articleContentString
-        }
-        
+        newsArticleContent.text = articleContentString
         let editedImageURL = URL(string: imageURL)
         newsArticleImage.sd_setImage(with: editedImageURL, placeholderImage: UIImage(named: "placeholder"), options: .init(), completed: nil)
     
@@ -91,7 +89,8 @@ class DetailNewsVC: UIViewController {
             
             switch sender.state {
             case .began:
-                performSegue(withIdentifier: "newsFeedView", sender: self)
+                hero.dismissViewController()
+                
             case .changed:
                 Hero.shared.update(progress)
                 let currentPosition = CGPoint(x: translation.x + newsArticleImage.center.x, y: translation.y + newsArticleImage.center.y)
@@ -132,19 +131,6 @@ class DetailNewsVC: UIViewController {
     }
     */
 
-}
-extension String {
-    subscript (bounds: CountableClosedRange<Int>) -> String {
-        let start = index(startIndex, offsetBy: bounds.lowerBound)
-        let end = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[start...end])
-    }
-    
-    subscript (bounds: CountableRange<Int>) -> String {
-        let start = index(startIndex, offsetBy: bounds.lowerBound)
-        let end = index(startIndex, offsetBy: bounds.upperBound)
-        return String(self[start..<end])
-}
 }
 
 
