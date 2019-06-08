@@ -86,7 +86,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         
         navigationItem.title = "News Feed"
         
-        collectionView.addSubview(refreshControl)
+        collectionView.refreshControl = refreshControl
 //        view.addSubview(label)
         
 //        self.view.addSubview(button)

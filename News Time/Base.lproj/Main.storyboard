@@ -55,7 +55,7 @@
         <!--News FeedVC-->
         <scene sceneID="9MO-Tl-flL">
             <objects>
-                <viewController id="yhG-BZ-NeM" customClass="NewsFeedVC" customModule="News_Time" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="yhG-BZ-NeM" customClass="NewsFeedVC" customModule="News_Time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V6l-3n-jTD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -210,7 +210,7 @@
                             <constraint firstAttribute="trailing" secondItem="eAo-Z5-69h" secondAttribute="trailing" id="1IG-Ng-cXV"/>
                             <constraint firstItem="eAo-Z5-69h" firstAttribute="leading" secondItem="V6l-3n-jTD" secondAttribute="leading" id="TIF-GJ-P6J"/>
                             <constraint firstAttribute="bottom" secondItem="eAo-Z5-69h" secondAttribute="bottom" id="ar3-5b-Rsf"/>
-                            <constraint firstItem="eAo-Z5-69h" firstAttribute="top" secondItem="CjJ-3l-kIG" secondAttribute="top" constant="-116" id="lKe-ci-h5h"/>
+                            <constraint firstItem="eAo-Z5-69h" firstAttribute="top" secondItem="V6l-3n-jTD" secondAttribute="top" id="lKe-ci-h5h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CjJ-3l-kIG"/>
                         <userDefinedRuntimeAttributes>
@@ -226,7 +226,7 @@
                             </connections>
                         </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="64" y="7" width="216" height="30"/>
+                            <rect key="frame" x="63" y="7" width="216" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <state key="normal" title="Button">
@@ -438,7 +438,7 @@
         <!--Search-->
         <scene sceneID="NAR-t4-8nH">
             <objects>
-                <viewController restorationIdentifier="searchView" storyboardIdentifier="searchView" id="sLf-NB-Csv" customClass="SearchVC" customModule="News_Time" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController restorationIdentifier="searchView" storyboardIdentifier="searchView" extendedLayoutIncludesOpaqueBars="YES" id="sLf-NB-Csv" customClass="SearchVC" customModule="News_Time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v4l-fw-Udq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -525,7 +525,7 @@
                             <constraint firstItem="qhK-wp-rQe" firstAttribute="leading" secondItem="v4l-fw-Udq" secondAttribute="leading" id="Lqu-tY-Ieb"/>
                             <constraint firstAttribute="trailing" secondItem="qhK-wp-rQe" secondAttribute="trailing" id="NeT-BM-ndB"/>
                             <constraint firstAttribute="bottom" secondItem="qhK-wp-rQe" secondAttribute="bottom" id="SUU-OL-01q"/>
-                            <constraint firstItem="qhK-wp-rQe" firstAttribute="top" secondItem="XMa-Cq-YjF" secondAttribute="top" constant="-116" id="tMc-wY-Qyq"/>
+                            <constraint firstItem="qhK-wp-rQe" firstAttribute="top" secondItem="v4l-fw-Udq" secondAttribute="top" id="tMc-wY-Qyq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XMa-Cq-YjF"/>
                         <userDefinedRuntimeAttributes>
@@ -622,6 +622,6 @@
         <image name="wallpaper1" width="3629" height="3341"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eho-zY-HAh"/>
+        <segue reference="Nvb-Sh-uIb"/>
     </inferredMetricsTieBreakers>
 </document>

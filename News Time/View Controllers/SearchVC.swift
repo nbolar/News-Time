@@ -12,6 +12,8 @@ class SearchVC: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     let searchController = UISearchController(searchResultsController: nil)
+    let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,19 +47,15 @@ class SearchVC: UIViewController {
         {
             cell.hero.modifiers = [.fade, .scale(0.5)]
         }
-        
+  
         
     }
-//    override func viewDidAppear(_ animated: Bool) {
-//        searchController.searchBar.becomeFirstResponder()
-//        navigationItem.searchController?.searchBar.becomeFirstResponder()
-//        searchController.searchBar.keyboardAppearance = .dark
-//    }
     
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
+
     
     
 
