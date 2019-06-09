@@ -85,7 +85,7 @@ class SearchList{
                 searchImages.append(article["urlToImage"].stringValue)
                 
                 
-                let publishedTime = article["publishedAt"].stringValue
+//                let publishedTime = article["publishedAt"].stringValue
                 dayNews.datePosted = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
                 
                 news.append(dayNews)

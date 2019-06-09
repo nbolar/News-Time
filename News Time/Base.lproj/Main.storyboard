@@ -173,7 +173,7 @@
                                     <rect key="frame" x="0.0" y="330" width="375" height="130"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by NewsAPI.org" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFU-3z-SVk">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by NewsAPI.org" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFU-3z-SVk">
                                             <rect key="frame" x="14" y="16" width="353" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="ZQD-De-iVH"/>
@@ -219,14 +219,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="0nB-VM-6Ok">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="list" style="plain" id="BcD-KD-dZf">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="list" id="BcD-KD-dZf">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="changeLayout:" destination="yhG-BZ-NeM" id="nFa-Yp-NQT"/>
                             </connections>
                         </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="63" y="7" width="216" height="30"/>
+                            <rect key="frame" x="55.5" y="7" width="216" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <state key="normal" title="Button">
@@ -237,13 +237,13 @@
                             </connections>
                         </button>
                         <rightBarButtonItems>
-                            <barButtonItem title="Item" image="refresh-1" style="plain" id="XLp-Ma-ItU">
+                            <barButtonItem title="Item" image="refresh" id="XLp-Ma-ItU">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="refreshButtonClicked:" destination="yhG-BZ-NeM" id="IOA-3d-a0l"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="globe" style="plain" id="uKy-Zr-XEy">
+                            <barButtonItem image="globe" id="uKy-Zr-XEy">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="showCountryPopoverClicked:" destination="yhG-BZ-NeM" id="3mx-jp-Gnn"/>
@@ -257,6 +257,7 @@
                     <connections>
                         <outlet property="collectionView" destination="eAo-Z5-69h" id="T9t-ES-JjF"/>
                         <outlet property="countryButton" destination="uKy-Zr-XEy" id="8j8-u1-MEb"/>
+                        <outlet property="layoutButton" destination="BcD-KD-dZf" id="UnP-rQ-lZc"/>
                         <outlet property="refreshButton" destination="XLp-Ma-ItU" id="jpS-3O-xgf"/>
                         <outlet property="sourcesButton" destination="U9c-rK-hSN" id="CQ9-Cx-Bi9"/>
                         <segue destination="x5T-Nl-CFO" kind="presentation" identifier="detailNewsSegue" id="Nvb-Sh-uIb"/>
@@ -287,7 +288,7 @@
                                     <constraint firstAttribute="height" constant="25" id="MJm-yc-KcI"/>
                                     <constraint firstAttribute="width" constant="25" id="fE7-CB-DB9"/>
                                 </constraints>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="down">
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -538,27 +539,10 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="collectionView" destination="qhK-wp-rQe" id="KeM-2r-Kgv"/>
-                        <outlet property="searchDisplayController" destination="7k4-j1-v8a" id="JFj-OO-tJh"/>
                         <segue destination="x5T-Nl-CFO" kind="presentation" identifier="searchDetailNewsSegue" id="eho-zY-HAh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cc3-kk-uTY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="YKO-5O-RkK">
-                    <connections>
-                        <outlet property="delegate" destination="sLf-NB-Csv" id="16F-n4-RGz"/>
-                        <outlet property="searchContentsController" destination="sLf-NB-Csv" id="PXF-SN-vcj"/>
-                        <outlet property="searchResultsDataSource" destination="sLf-NB-Csv" id="oA7-tk-h5B"/>
-                        <outlet property="searchResultsDelegate" destination="sLf-NB-Csv" id="Zkd-BR-G5y"/>
-                    </connections>
-                </searchDisplayController>
-                <searchDisplayController id="7k4-j1-v8a">
-                    <connections>
-                        <outlet property="delegate" destination="sLf-NB-Csv" id="R2L-FY-aU4"/>
-                        <outlet property="searchContentsController" destination="sLf-NB-Csv" id="3xq-XD-EYF"/>
-                        <outlet property="searchResultsDataSource" destination="sLf-NB-Csv" id="NMk-kz-61V"/>
-                        <outlet property="searchResultsDelegate" destination="sLf-NB-Csv" id="kUk-v1-tt8"/>
-                    </connections>
-                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="1533.5999999999999" y="398.95052473763121"/>
         </scene>
@@ -570,7 +554,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="37" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qcu-Oa-iFP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" style="plain" rowHeight="37" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qcu-Oa-iFP">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -618,7 +602,7 @@
         <image name="list" width="16.666666030883789" height="16.666666030883789"/>
         <image name="newsAPI" width="400" height="400"/>
         <image name="newsLaunch" width="319" height="363"/>
-        <image name="refresh-1" width="16.666666030883789" height="16.666666030883789"/>
+        <image name="refresh" width="24" height="24"/>
         <image name="wallpaper1" width="3629" height="3341"/>
     </resources>
     <inferredMetricsTieBreakers>

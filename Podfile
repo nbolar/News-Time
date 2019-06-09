@@ -12,5 +12,6 @@ target 'News Time' do
   pod 'SwiftyJSON'
   pod 'Alamofire', '~> 5.0.0-beta.2'
   pod 'SDWebImage', '~> 5.0'
+  pod 'PullToReach'
 
 end

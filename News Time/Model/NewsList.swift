@@ -77,7 +77,7 @@ class NewsList{
                 images.append(article["urlToImage"].stringValue)
                 
                 
-                let publishedTime = article["publishedAt"].stringValue
+//                let publishedTime = article["publishedAt"].stringValue
                 dayNews.newsProvider = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
                 
                 

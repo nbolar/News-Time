@@ -8,6 +8,7 @@
 
 import UIKit
 import Hero
+import PullToReach
 
 
 var indexSelected: IndexPath!
@@ -15,8 +16,12 @@ var updatedString : String!
 var layout = 0
 var popoverButton = 0
 
-class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
-
+class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, PullToReach {
+    
+    var scrollView: UIScrollView {
+        return collectionView
+    }
+    @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var countryButton: UIBarButtonItem!
     @IBOutlet weak var sourcesButton: UIButton!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
@@ -37,6 +42,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         sourcesButton.titleLabel?.lineBreakMode = .byWordWrapping
         sourcesButton.titleLabel?.numberOfLines = 2
         sourcesButton.setTitle("Sources ⩡", for: .normal)
+        sourcesButton.target(forAction: #selector(showCountryButton), withSender: nil)
         
         let timeInterval = 1.0
         collectionView.hero.modifiers = [.scale(1.2), .duration(timeInterval)]
@@ -56,7 +62,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         
         
         let labelXPostion:CGFloat = view.bounds.width / 2 - 115
-        let labelYPostion:CGFloat = 150
+        let labelYPostion:CGFloat = 180
         let labelWidth:CGFloat = 230
         let labelHeight:CGFloat = 25
         
@@ -79,20 +85,21 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white]
         refreshControl.attributedTitle = NSAttributedString(string: refreshString, attributes: attributes)
         refreshControl.tintColor = .white
-        
-        
-        
-        
-        
+        refreshButton.action = #selector(refreshNewsFeedButton)
+        countryButton.action = #selector(showCountryButton)
+        layoutButton.action = #selector(layoutButtonClicked)
+
         navigationItem.title = "News Feed"
         
-        collectionView.refreshControl = refreshControl
-//        view.addSubview(label)
+//        collectionView.refreshControl = refreshControl
         
-//        self.view.addSubview(button)
-        
-        
-//        collectionView.register(NewsFeedCell.self, forCellWithReuseIdentifier: "NewsFeedCell")
+        self.navigationItem.rightBarButtonItems = [
+            refreshButton,
+            countryButton
+            ]
+        self.navigationItem.leftBarButtonItems = [layoutButton]
+        self.activatePullToReach(on: navigationItem, highlightColor: .gray)
+
         // Do any additional setup after loading the view.
         
     }
@@ -127,9 +134,29 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         
     }
     
+    @objc func showCountryButton(){
+        showCountryPopoverClicked((Any).self)
+    }
+    @objc func showSourcesButton(){
+        showPopoverButtonClicked((Any).self)
+    }
+    
     
     @IBAction func showCountryPopoverClicked(_ sender: Any) {
         popoverButton = 1
+        
+        let barButtonItem = self.navigationItem.rightBarButtonItems?[1]
+        guard let view = barButtonItem?.value(forKey: "view") as? UIView else { return }
+        
+        view.transform = CGAffineTransform(rotationAngle: CGFloat())
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
+        rotationAnimation.duration = 1.5
+        rotationAnimation.repeatCount = 1.0
+        
+        view.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        
         //Configure the presentation controller
         let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier: "PopoverContentController") as? PopoverContentController
         popoverContentController?.modalPresentationStyle = .popover
@@ -199,7 +226,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
     
     
     
-    @IBAction func refreshButtonClicked(_ sender: UIButton) {
+    @IBAction func refreshButtonClicked(_ sender: Any) {
         let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
         anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
         anim.duration = 0.8
@@ -208,11 +235,28 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         anim.isRemovedOnCompletion = true
         anim.toValue = NSValue.init(caTransform3D: CATransform3DMakeScale(1.2, 1.2, 1.2))
         label.layer.add(anim, forKey: nil)
+        
+        let barButtonItem = self.navigationItem.rightBarButtonItems?[0]
+        guard let view = barButtonItem?.value(forKey: "view") as? UIView else { return }
+        
+        view.transform = CGAffineTransform(rotationAngle: CGFloat())
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
+        rotationAnimation.duration = 1.5
+        rotationAnimation.repeatCount = 2.0
+        
+        view.layer.add(rotationAnimation, forKey: "rotationAnimation")
+        
+        
+        
+        
         refreshNewsFeed((Any).self)
         refreshButton.isEnabled = false
         collectionView.isHidden = true
         label.isHidden = false
-        view.addSubview(label)
+//        view.addSubview(label)
+        collectionView.isHidden = true
     }
     
     
@@ -224,6 +268,11 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         
     }
     
+    @objc private func refreshNewsFeedButton() {
+        refreshButtonClicked((Any).self)
+        
+    }
+    
     @objc func stopRefreshing(){
         collectionView.isHidden = false
         label.isHidden = true
@@ -231,7 +280,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         self.refreshControl.endRefreshing()
         refreshButton.isEnabled = true
         let indepath = IndexPath(row: 0, section: 0)
-//        collectionView.scrollToItem(at: indepath, at: .top, animated: true)
+        collectionView.scrollToItem(at: indepath, at: .top, animated: true)
         
     }
     @objc func buttonAction(_ sender:UIButton!)
@@ -246,6 +295,9 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate{
         self.button.isHidden = true
         changeTabBar(hidden: false, animated: true)
         
+    }
+    @objc func layoutButtonClicked(){
+        changeLayout((Any).self)
     }
     
     @IBAction func changeLayout(_ sender: Any) {

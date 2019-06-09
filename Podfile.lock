@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.0.0-beta.6)
   - Hero (1.4.0)
+  - PullToReach (0.1.2)
   - SDWebImage (5.0.4):
     - SDWebImage/Core (= 5.0.4)
   - SDWebImage/Core (5.0.4)
@@ -9,6 +10,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.2)
   - Hero
+  - PullToReach
   - SDWebImage (~> 5.0)
   - SwiftyJSON
 
@@ -16,15 +18,17 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Hero
+    - PullToReach
     - SDWebImage
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
   Hero: bac92350d7201a1a940003e0767c7b52ce7c99a1
+  PullToReach: 0e747e10403d2827277f8728151ad7998d4576eb
   SDWebImage: c739016e4bdf0a4a1f9a04b5e0385395ad63a282
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 403f6057dce06d1027f6cf18093bb21f4f1e2f5e
+PODFILE CHECKSUM: 902bf0f16ba0a129440a4d7a5ded782eaebf0400
 
 COCOAPODS: 1.5.2
