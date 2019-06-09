@@ -14,7 +14,7 @@ typealias DownloadComplete = () -> ()
 let NOTIF_DOWNLOAD_COMPLETE = NSNotification.Name("dataDownloaded")
 
 
-var API_KEY = "YOUR_KEY"
+var API_KEY = "9eca91b2275d4214bd7f6b88f726f3df"
 var ENDPOINT = "top-headlines"
 var COUNTRY = "us"
 var SOURCES = ""
