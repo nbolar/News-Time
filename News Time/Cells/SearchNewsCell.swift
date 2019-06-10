@@ -20,7 +20,9 @@ class SearchNewsCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         self.layer.backgroundColor = UIColor.init(white: 0.9, alpha: 0.2).cgColor
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 20
+        self.layer.borderColor = UIColor.lightGray.cgColor
+        self.layer.borderWidth = 2
         
     }
     
@@ -29,7 +31,7 @@ class SearchNewsCell: UICollectionViewCell {
         let imageURL = URL(string: searchCell.imageURL)
         searchImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"), options: .init(), completed: nil)//
         searchHeadlineLabel.text = searchCell.newsHeadline
-        searchDatePostedLabel.text = searchCell.datePosted
+        searchDatePostedLabel.text = "◉ \(searchCell.datePosted)"
         newsProviderLabel.text = searchCell.newsProvider
         
     }

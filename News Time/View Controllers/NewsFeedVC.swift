@@ -17,6 +17,8 @@ var layout = 0
 var popoverButton = 0
 
 class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, PullToReach {
+ 
+    
     
     var scrollView: UIScrollView {
         return collectionView
@@ -85,6 +87,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white]
         refreshControl.attributedTitle = NSAttributedString(string: refreshString, attributes: attributes)
         refreshControl.tintColor = .white
+    
         refreshButton.action = #selector(refreshNewsFeedButton)
         countryButton.action = #selector(showCountryButton)
         layoutButton.action = #selector(layoutButtonClicked)
@@ -99,6 +102,12 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             ]
         self.navigationItem.leftBarButtonItems = [layoutButton]
         self.activatePullToReach(on: navigationItem, highlightColor: .gray)
+        
+
+        
+        
+
+        
 
         // Do any additional setup after loading the view.
         
@@ -137,9 +146,13 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     @objc func showCountryButton(){
         showCountryPopoverClicked((Any).self)
     }
+    
     @objc func showSourcesButton(){
         showPopoverButtonClicked((Any).self)
     }
+    
+    
+
     
     
     @IBAction func showCountryPopoverClicked(_ sender: Any) {
@@ -186,7 +199,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         //Configure the presentation controller
         let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier: "PopoverContentController") as? PopoverContentController
         popoverContentController?.modalPresentationStyle = .popover
-        popoverContentController?.preferredContentSize = CGSize(width: 250, height: 400)
+        popoverContentController?.preferredContentSize = CGSize(width: 250, height: 500)
         
         /* 3 */
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
@@ -214,11 +227,24 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     
     //UIPopoverPresentationControllerDelegate
     func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
-        
+        setAlphaOfBackgroundViews(alpha: 1)
     }
     
     func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
         return true
+    }
+    func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+        setAlphaOfBackgroundViews(alpha: 0.4)
+    }
+    
+    func setAlphaOfBackgroundViews(alpha: CGFloat) {
+        let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow
+        UIView.animate(withDuration: 0.2) {
+            statusBarWindow?.alpha = alpha
+            self.view.alpha = alpha
+            self.navigationController?.navigationBar.alpha = alpha
+            self.tabBarController?.tabBar.alpha = alpha
+        }
     }
     
     
@@ -339,7 +365,22 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
- 
+        
+//        if(((scrollView.panGestureRecognizer.translation(in: scrollView).x) <= -10) && ((scrollView.panGestureRecognizer.translation(in: scrollView).x) > -20)){
+//
+//            let labelXPostion:CGFloat = (navigationItem.titleView?.bounds.width)! / 2 - 50
+//            let labelYPostion:CGFloat = 30
+//            let labelWidth:CGFloat = 100
+//            let labelHeight:CGFloat = 25
+//
+//            
+//            label.frame = CGRect(x: labelXPostion, y: labelYPostion, width: labelWidth, height: labelHeight)
+//            label.text = "Refresh Feed"
+//            label.textColor = .white
+//            label.backgroundColor = .clear
+//            navigationItem.titleView?.addSubview(label)
+//
+//        }
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             self.view.addSubview(button)
             self.button.isHidden = false
@@ -498,5 +539,14 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
     
     
     
+    
+}
+class ScalingButton: UIButton {
+    
+    override func applyStyle(isHighlighted: Bool, highlightColor: UIColor) {
+        let scale: CGFloat = isHighlighted ? 1.5 : 1.0
+        transform = CGAffineTransform(translationX: scale, y: scale)
+        print("Hello")
+    }
     
 }

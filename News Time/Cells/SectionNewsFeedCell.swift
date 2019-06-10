@@ -24,7 +24,7 @@ class SectionNewsFeedCell: UICollectionViewCell {
         let imageURL = URL(string: newsCell.imageURL)
         articleImageView.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"), options: .init(), completed: nil)//        newsImage.alpha = 0.5
         articleHealineLabel.text = newsCell.newsHeadline
-        datePostedLabel.text = newsCell.newsProvider
+        datePostedLabel.text = "◉ \(newsCell.newsProvider)"
         
     }
 }

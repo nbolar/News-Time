@@ -174,7 +174,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Powered by NewsAPI.org" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kFU-3z-SVk">
-                                            <rect key="frame" x="14" y="16" width="353" height="22"/>
+                                            <rect key="frame" x="14" y="16" width="392" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="ZQD-De-iVH"/>
                                             </constraints>
@@ -183,7 +183,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newsAPI" translatesAutoresizingMaskIntoConstraints="NO" id="Sbn-v3-qs2">
-                                            <rect key="frame" x="172" y="43" width="37" height="37"/>
+                                            <rect key="frame" x="191.5" y="43" width="37" height="37"/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -226,7 +226,7 @@
                             </connections>
                         </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="55.5" y="7" width="216" height="30"/>
+                            <rect key="frame" x="64" y="7" width="216" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <state key="normal" title="Button">
@@ -288,7 +288,7 @@
                                     <constraint firstAttribute="height" constant="25" id="MJm-yc-KcI"/>
                                     <constraint firstAttribute="width" constant="25" id="fE7-CB-DB9"/>
                                 </constraints>
-                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="down">
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -307,7 +307,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QJE-6t-Ahk">
-                                <rect key="frame" x="0.0" y="370" width="375" height="224"/>
+                                <rect key="frame" x="0.0" y="370" width="375" height="179"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -315,12 +315,14 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPk-yW-7Nv">
-                                <rect key="frame" x="53" y="602" width="269" height="50"/>
+                                <rect key="frame" x="0.0" y="587" width="375" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="lsm-Is-OAF"/>
+                                    <constraint firstAttribute="height" constant="80" id="lsm-Is-OAF"/>
                                 </constraints>
-                                <state key="normal" title="Button">
+                                <inset key="titleEdgeInsets" minX="0.0" minY="-20" maxX="0.0" maxY="0.0"/>
+                                <state key="normal" title="Read the entire article">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -331,18 +333,18 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="jPk-yW-7Nv" firstAttribute="leading" secondItem="EqD-Nx-Gyg" secondAttribute="leading" constant="53" id="01W-f4-TkP"/>
+                            <constraint firstItem="jPk-yW-7Nv" firstAttribute="leading" secondItem="Zb8-Ql-nvD" secondAttribute="leading" id="01W-f4-TkP"/>
                             <constraint firstItem="4O4-2U-6eu" firstAttribute="leading" secondItem="EqD-Nx-Gyg" secondAttribute="leading" constant="8" id="2Qo-qJ-PdN"/>
                             <constraint firstItem="QJE-6t-Ahk" firstAttribute="top" secondItem="4O4-2U-6eu" secondAttribute="bottom" constant="8" id="4Ce-42-D07"/>
                             <constraint firstItem="4O4-2U-6eu" firstAttribute="top" secondItem="Igu-qj-XUR" secondAttribute="bottom" constant="8.5" id="50U-Mi-feM"/>
                             <constraint firstItem="QJE-6t-Ahk" firstAttribute="leading" secondItem="EqD-Nx-Gyg" secondAttribute="leading" id="DYx-Ik-jAt"/>
-                            <constraint firstItem="EqD-Nx-Gyg" firstAttribute="bottom" secondItem="jPk-yW-7Nv" secondAttribute="bottom" constant="15" id="Dna-Up-1Zk"/>
+                            <constraint firstAttribute="bottom" secondItem="jPk-yW-7Nv" secondAttribute="bottom" id="Dna-Up-1Zk"/>
                             <constraint firstItem="QJE-6t-Ahk" firstAttribute="trailing" secondItem="EqD-Nx-Gyg" secondAttribute="trailing" id="S38-xW-6bA"/>
-                            <constraint firstItem="EqD-Nx-Gyg" firstAttribute="trailing" secondItem="jPk-yW-7Nv" secondAttribute="trailing" constant="53" id="d71-gC-Zja"/>
+                            <constraint firstAttribute="trailing" secondItem="jPk-yW-7Nv" secondAttribute="trailing" id="d71-gC-Zja"/>
                             <constraint firstItem="2VV-YN-vp6" firstAttribute="top" secondItem="EqD-Nx-Gyg" secondAttribute="top" constant="25" id="gpT-12-xxi"/>
                             <constraint firstItem="Igu-qj-XUR" firstAttribute="height" secondItem="Zb8-Ql-nvD" secondAttribute="height" multiplier="0.4" constant="66.200000000000003" id="j8p-2v-WAS"/>
                             <constraint firstItem="EqD-Nx-Gyg" firstAttribute="trailing" secondItem="4O4-2U-6eu" secondAttribute="trailing" constant="16" id="jwq-Bd-2FZ"/>
-                            <constraint firstItem="jPk-yW-7Nv" firstAttribute="top" secondItem="QJE-6t-Ahk" secondAttribute="bottom" constant="8" id="q2e-CB-p05"/>
+                            <constraint firstItem="jPk-yW-7Nv" firstAttribute="top" secondItem="QJE-6t-Ahk" secondAttribute="bottom" constant="38" id="q2e-CB-p05"/>
                             <constraint firstItem="2VV-YN-vp6" firstAttribute="leading" secondItem="EqD-Nx-Gyg" secondAttribute="leading" constant="25" id="qRI-aa-KFy"/>
                             <constraint firstItem="QJE-6t-Ahk" firstAttribute="top" secondItem="4O4-2U-6eu" secondAttribute="bottom" constant="8" id="rE4-XD-qdc"/>
                             <constraint firstItem="Igu-qj-XUR" firstAttribute="top" secondItem="Zb8-Ql-nvD" secondAttribute="top" id="vYH-NP-oL0"/>
@@ -379,7 +381,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2422" y="-269"/>
+            <point key="canvasLocation" x="2421.5999999999999" y="-269.41529235382313"/>
         </scene>
         <!--Launch View Controller-->
         <scene sceneID="BvT-4j-KGf">

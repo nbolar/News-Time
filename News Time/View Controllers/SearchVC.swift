@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import PullToReach
 
-class SearchVC: UIViewController {
+class SearchVC: UIViewController, PullToReach {
+    var scrollView: UIScrollView{
+        return collectionView
+    }
+    
 
     @IBOutlet weak var collectionView: UICollectionView!
     let searchController = UISearchController(searchResultsController: nil)

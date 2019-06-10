@@ -37,7 +37,7 @@ class DetailNewsVC: UIViewController {
         newsArticleImage.hero.modifiers = [.translate(x: 0, y: 75, z: 0), .duration(timeInterval)]
         articleHeadline.hero.modifiers = [.scale(1.2), .duration(1)]
         newsArticleContent.hero.modifiers = [.scale(1.2), .duration(1)]
-        openURLButton.layer.cornerRadius = 10
+//        openURLButton.layer.cornerRadius = 10
         
         openURLButton.setTitle("Read the entire article ⟶", for: .normal)
         newsArticleContent.textColor = .lightGray
@@ -66,15 +66,16 @@ class DetailNewsVC: UIViewController {
         openURLButton.layer.add(anim, forKey: nil)
     }
     
-    @IBAction func openURLButtonClicked(_ sender: UIButton) {
+    @IBAction func openURLButtonClicked(_ sender: Any) {
         let editedContentURl = URL(string: urlToArticle)
-        
         let config = SFSafariViewController.Configuration()
 //        config.entersReaderIfAvailable = true
         let safariController = SFSafariViewController.init(url: editedContentURl!, configuration: config)
         safariController.delegate = self as? SFSafariViewControllerDelegate
         safariController.preferredBarTintColor = .black
-        self.present(safariController, animated: true, completion: nil)
+//        safariController.hero.isEnabled = true
+//        safariController.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+        present(safariController, animated: true, completion: nil)
         
     }
     

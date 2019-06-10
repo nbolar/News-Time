@@ -2,8 +2,8 @@
 //  Date.swift
 //  News Time
 //
-//  Created by Nikhil Bolar on 5/30/19.
-//  Copyright © 2019 Nikhil Bolar. All rights reserved.
+//  Created by LittleBiteOfCocoa on 23/01/17.
+//  Copyright © littlebitesofcocoa.com. All rights reserved.
 //
 
 import Foundation
