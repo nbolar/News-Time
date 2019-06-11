@@ -100,10 +100,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         
 //        collectionView.refreshControl = refreshControl
         
-        self.navigationItem.rightBarButtonItems = [
-            refreshButton,
-            countryButton
-            ]
+        self.navigationItem.rightBarButtonItems = [refreshButton, countryButton]
         
         self.navigationItem.leftBarButtonItems = [layoutButton]
         self.activatePullToReach(on: navigationItem, highlightColor: .lightGray)
