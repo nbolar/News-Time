@@ -72,9 +72,11 @@ class SearchVC: UIViewController, PullToReach {
         // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
     func enableDarkMode(){
         scrollView.indicatorStyle = .white
         navigationController?.navigationBar.barTintColor = .black
