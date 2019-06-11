@@ -28,13 +28,23 @@ class PopoverContentController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         self.view.layer.cornerRadius = 8
-        self.view.layer.backgroundColor = UIColor.black.cgColor
+        
         
 
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if darkMode == 1{
+            tableView.backgroundColor = .black
+            view.backgroundColor = .black
+            tableView.separatorColor = .lightGray
+
+        }else{
+            tableView.backgroundColor = .white
+            view.backgroundColor = .white
+            tableView.separatorColor = .lightGray
+        }
     }
     
 
@@ -68,8 +78,15 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
         }else{
             cell.textLabel?.text = datasourceArray2[indexPath.row]
         }
-        
-        cell.textLabel?.textColor = .white
+        if darkMode == 0{
+            cell.contentView.backgroundColor = .white
+            cell.backgroundColor = .white
+            cell.textLabel?.textColor = .black
+        }else{
+            cell.contentView.backgroundColor = .black
+            cell.backgroundColor = .black
+            cell.textLabel?.textColor = .white
+        }
         return cell
         
         

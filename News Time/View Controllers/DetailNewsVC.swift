@@ -21,11 +21,13 @@ class DetailNewsVC: UIViewController {
     @IBOutlet weak var backgroundImageView: UIImageView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var openURLButton: UIButton!
+    @IBOutlet weak var datePostedLabel: UILabel!
     
     var articleHeadlineString = ""
     var articleContentString = ""
     var imageURL = ""
     var urlToArticle = ""
+    var datePosted = ""
     
     
     override func viewDidLoad() {
@@ -37,7 +39,8 @@ class DetailNewsVC: UIViewController {
         newsArticleImage.hero.modifiers = [.translate(x: 0, y: 75, z: 0), .duration(timeInterval)]
         articleHeadline.hero.modifiers = [.scale(1.2), .duration(1)]
         newsArticleContent.hero.modifiers = [.scale(1.2), .duration(1)]
-//        openURLButton.layer.cornerRadius = 10
+        datePostedLabel.hero.modifiers = [.scale(1.9), .duration(1)]
+        openURLButton.layer.cornerRadius = 5
         
         openURLButton.setTitle("Read the entire article ⟶", for: .normal)
         newsArticleContent.textColor = .lightGray
@@ -46,6 +49,7 @@ class DetailNewsVC: UIViewController {
         
         articleHeadline.text = articleHeadlineString
         newsArticleContent.text = articleContentString
+        datePostedLabel.text = "◉ \(datePosted)"
         let editedImageURL = URL(string: imageURL)
         newsArticleImage.sd_setImage(with: editedImageURL, placeholderImage: UIImage(named: "placeholder"), options: .init(), completed: nil)
     

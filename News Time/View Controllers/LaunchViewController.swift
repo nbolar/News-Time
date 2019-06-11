@@ -26,7 +26,7 @@ class LaunchViewController: UIViewController {
         anim.isRemovedOnCompletion = true
         anim.toValue = NSValue.init(caTransform3D: CATransform3DMakeScale(1.2, 1.2, 1.2))
         launchImageView.layer.add(anim, forKey: nil)
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(self.dismissSelf), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.dismissSelf), userInfo: nil, repeats: false)
 
 
         

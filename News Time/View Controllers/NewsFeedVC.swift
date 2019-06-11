@@ -104,6 +104,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             refreshButton,
             countryButton
             ]
+        
         self.navigationItem.leftBarButtonItems = [layoutButton]
         self.activatePullToReach(on: navigationItem, highlightColor: .lightGray)
 
@@ -270,7 +271,11 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .up
             popoverPresentationController.barButtonItem = self.countryButton
-            popoverPresentationController.backgroundColor = .black
+            if darkMode == 1{
+                popoverPresentationController.backgroundColor = .black
+            }else{
+                popoverPresentationController.backgroundColor = .white
+            }
             popoverPresentationController.delegate = self
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -295,7 +300,12 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             popoverPresentationController.sourceView = self.sourcesButton
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.delegate = self
-            popoverPresentationController.backgroundColor = .black
+            if darkMode == 1{
+                popoverPresentationController.backgroundColor = .black
+            }else{
+                popoverPresentationController.backgroundColor = .white
+            }
+            
             
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -335,7 +345,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             statusBarWindow?.alpha = alpha
             self.view.alpha = alpha
             self.navigationController?.navigationBar.alpha = alpha
-            self.tabBarController?.tabBar.alpha = alpha
+            
         }
     }
 
@@ -495,6 +505,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
                 guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexpath = self.collectionView?.indexPath(for: cell) else { return }
                 vc.articleHeadlineString = headlines[indexpath.row]
+                vc.datePosted = datePosted[indexpath.row]
                 if content[indexpath.row] != "" && contentDescription[indexpath.row] != ""
                 {
                     if contentDescription[indexpath.row][0...10] == content[indexpath.row][0...10]{

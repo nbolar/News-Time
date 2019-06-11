@@ -139,6 +139,7 @@ class SearchVC: UIViewController, PullToReach {
                 guard let cell = sender as? UICollectionViewCell else { return }
                 guard let indexpath = self.collectionView?.indexPath(for: cell) else { return }
                 vc.articleHeadlineString = searchHeadlines[indexpath.row]
+                vc.datePosted = searchDatePosted[indexpath.row]
                 if searchContent[indexpath.row] != "" && searchDescription[indexpath.row] != ""
                 {
                     if searchDescription[indexpath.row][0...10] == searchContent[indexpath.row][0...10]{

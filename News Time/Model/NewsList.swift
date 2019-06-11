@@ -15,6 +15,7 @@ var images = [String]()
 var dates = [String]()
 var contentURL = [String]()
 var contentDescription = [String]()
+var datePosted = [String]()
 
 class NewsList{
     
@@ -58,6 +59,7 @@ class NewsList{
         images.removeAll()
         contentURL.removeAll()
         contentDescription.removeAll()
+        datePosted.removeAll()
         
         var news = [NewsList]()
         
@@ -79,6 +81,7 @@ class NewsList{
                 
 //                let publishedTime = article["publishedAt"].stringValue
                 dayNews.newsProvider = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
+                datePosted.append((article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? "")
                 
                 
                 

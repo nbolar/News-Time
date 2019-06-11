@@ -13,9 +13,10 @@ import SwiftyJSON
 var searchHeadlines = [String]()
 var searchContent = [String]()
 var searchImages = [String]()
-var searchDates = [String]()
 var searchContentURL = [String]()
 var searchDescription = [String]()
+var searchDatePosted = [String]()
+
 class SearchList{
     
     fileprivate var _newsHeadline: String!
@@ -66,6 +67,7 @@ class SearchList{
         searchContentURL.removeAll()
         searchContent.removeAll()
         searchDescription.removeAll()
+        searchDatePosted.removeAll()
         
         var news = [SearchList]()
         
@@ -87,6 +89,7 @@ class SearchList{
                 
 //                let publishedTime = article["publishedAt"].stringValue
                 dayNews.datePosted = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
+                searchDatePosted.append((article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? "")
                 
                 news.append(dayNews)
             }
