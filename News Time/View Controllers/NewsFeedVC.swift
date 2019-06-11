@@ -15,6 +15,7 @@ var indexSelected: IndexPath!
 var updatedString : String!
 var layout = 0
 var popoverButton = 0
+var darkMode = 1
 
 class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, PullToReach {
  
@@ -32,6 +33,9 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     let refreshControl = UIRefreshControl()
   
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var spinner = UIActivityIndicatorView(style: .whiteLarge)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +58,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         }
         label.hero.modifiers = [.fade, .translate(x: 0, y: -300, z: 0)]
         
-        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         
         
         let xPostion:CGFloat = view.bounds.width / 2 - 50
@@ -101,19 +105,98 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             countryButton
             ]
         self.navigationItem.leftBarButtonItems = [layoutButton]
-        self.activatePullToReach(on: navigationItem, highlightColor: .gray)
-        
+        self.activatePullToReach(on: navigationItem, highlightColor: .lightGray)
 
         
+        NotificationCenter.default.addObserver(self, selector: #selector(setAlpha), name: NSNotification.Name(rawValue: "alpha"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(downloadCompleted), name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
         
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleTap(_:)))
+        longPress.cancelsTouchesInView = false
+        longPress.minimumPressDuration = 0.7
 
         
+    
+        tabBarController?.tabBar.addGestureRecognizer(longPress)
+        
+        if collectionView.backgroundColor == .black{
+            self.view.backgroundColor = .black
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+            ]
+            navigationController?.navigationBar.barStyle = .black
+        }else{
+            self.view.backgroundColor = .white
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+            ]
+            navigationController?.navigationBar.barStyle = .default
+            spinner.color = .black
+        }
 
         // Do any additional setup after loading the view.
         
     }
     
+//    @objc func downloadCompleted(){
+//        print("Download Completed")
+//    }
+    @objc func doubleTap(_ sender : UILongPressGestureRecognizer) {
+        if sender.state == .began{
+  
+            if collectionView.backgroundColor == .black{
+                darkMode = 0
+                postNotification()
+                collectionView.backgroundColor = .white
+                view.backgroundColor = .white
+                navigationController?.navigationBar.barTintColor = .white
+                navigationController?.navigationBar.backgroundColor = .clear
+                navigationController?.navigationBar.barStyle = .default
+                sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white, for: .normal)
+                refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+                layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+                countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+                self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.black,
+                    NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+                ]
+                tabBarController?.tabBar.barTintColor = .white
+                tabBarController?.tabBar.tintColor = .black
+                spinner.color = .black
+                
+                
+            }else{
+                darkMode = 1
+                postNotification()
+                navigationController?.navigationBar.barStyle = .black
+                navigationController?.navigationBar.barTintColor = .black
+                navigationController?.navigationBar.backgroundColor = .clear
+                view.backgroundColor = .black
+                sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black, for: .normal)
+                refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+                layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+                countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+                collectionView.backgroundColor = .black
+                self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                    NSAttributedString.Key.foregroundColor: UIColor.white,
+                    NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+                ]
+                tabBarController?.tabBar.barTintColor = .black
+                tabBarController?.tabBar.tintColor = .white
+                spinner.color = .white
+            }
+        }
+    }
+    func postNotification(){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "alpha2"), object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
+        
         let currentDateTime = Date()
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, MMMM d"
@@ -123,10 +206,18 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         
         self.title = "News Feed \n\(updatedString!)"
-        self.navigationController?.navigationBar.largeTitleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-        ]
+        if collectionView.backgroundColor == .black{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+            ]
+        }else{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+            ]
+        }
+
         
         for navItem in(self.navigationController?.navigationBar.subviews)! {
             for itemSubView in navItem.subviews {
@@ -180,9 +271,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             popoverPresentationController.permittedArrowDirections = .up
             popoverPresentationController.barButtonItem = self.countryButton
             popoverPresentationController.backgroundColor = .black
-            
-//            popoverPresentationController.sourceView = self.countryButton
-//            popoverPresentationController.sourceRect = countryButton.frame
             popoverPresentationController.delegate = self
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -237,6 +325,10 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         setAlphaOfBackgroundViews(alpha: 0.4)
     }
     
+    @objc func setAlpha(){
+        setAlphaOfBackgroundViews(alpha: 1.0)
+    }
+
     func setAlphaOfBackgroundViews(alpha: CGFloat) {
         let statusBarWindow = UIApplication.shared.value(forKey: "statusBarWindow") as? UIWindow
         UIView.animate(withDuration: 0.2) {
@@ -246,11 +338,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             self.tabBarController?.tabBar.alpha = alpha
         }
     }
-    
-    
-    
-    
-    
+
     
     @IBAction func refreshButtonClicked(_ sender: Any) {
         let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
@@ -269,17 +357,13 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         
         let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
-        rotationAnimation.duration = 1.5
-        rotationAnimation.repeatCount = 2.0
+        rotationAnimation.duration = 2
+        rotationAnimation.repeatCount = 0
         
         view.layer.add(rotationAnimation, forKey: "rotationAnimation")
         
-        
-        
-        
         refreshNewsFeed((Any).self)
         refreshButton.isEnabled = false
-        collectionView.isHidden = true
         label.isHidden = false
 //        view.addSubview(label)
         collectionView.isHidden = true
@@ -287,10 +371,16 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     
     
     @objc private func refreshNewsFeed(_ sender: Any) {
+        spinner.startAnimating()
+        view.addSubview(spinner)
+        
+        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
         appdelegate.downloadNewsArticles()
         
-        Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(stopRefreshing), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(stopRefreshing), userInfo: nil, repeats: false)
         
     }
     
@@ -300,13 +390,18 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     }
     
     @objc func stopRefreshing(){
+        spinner.stopAnimating()
+        spinner.removeFromSuperview()
         collectionView.isHidden = false
         label.isHidden = true
         collectionView.reloadData()
         self.refreshControl.endRefreshing()
         refreshButton.isEnabled = true
         let indepath = IndexPath(row: 0, section: 0)
-        collectionView.scrollToItem(at: indepath, at: .top, animated: true)
+        if  NewsService.instance.newsList.count > 0{
+            collectionView.scrollToItem(at: indepath, at: .top, animated: true)
+        }
+
         
     }
     @objc func buttonAction(_ sender:UIButton!)
@@ -365,22 +460,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-//        if(((scrollView.panGestureRecognizer.translation(in: scrollView).x) <= -10) && ((scrollView.panGestureRecognizer.translation(in: scrollView).x) > -20)){
-//
-//            let labelXPostion:CGFloat = (navigationItem.titleView?.bounds.width)! / 2 - 50
-//            let labelYPostion:CGFloat = 30
-//            let labelWidth:CGFloat = 100
-//            let labelHeight:CGFloat = 25
-//
-//            
-//            label.frame = CGRect(x: labelXPostion, y: labelYPostion, width: labelWidth, height: labelHeight)
-//            label.text = "Refresh Feed"
-//            label.textColor = .white
-//            label.backgroundColor = .clear
-//            navigationItem.titleView?.addSubview(label)
-//
-//        }
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             self.view.addSubview(button)
             self.button.isHidden = false
@@ -453,6 +532,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 extension NewsFeedVC:PopoverContentControllerDelegate {
     func popoverContent(controller: PopoverContentController, didselectItem name: String) {
         sourcesButton.setTitle(name + " ⩡", for: .normal)
+        collectionView.isHidden = true
         Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(refreshNewsFeed(_:)), userInfo: nil, repeats: false)
     }
 }
@@ -470,6 +550,7 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
             cell.configureCell(newsCell: NewsService.instance.newsList[indexPath.item])
             
+
             
             return cell
         } else{
@@ -479,6 +560,8 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             
             return cell
         }
+        
+        
         
 
         
@@ -541,12 +624,13 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
     
     
 }
-class ScalingButton: UIButton {
-    
-    override func applyStyle(isHighlighted: Bool, highlightColor: UIColor) {
-        let scale: CGFloat = isHighlighted ? 1.5 : 1.0
-        transform = CGAffineTransform(translationX: scale, y: scale)
-        print("Hello")
+extension UIColor
+{
+    var isDarkColor: Bool {
+        var r, g, b, a: CGFloat
+        (r, g, b, a) = (0, 0, 0, 0)
+        self.getRed(&r, green: &g, blue: &b, alpha: &a)
+        let lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        return  lum < 0.50 ? true : false
     }
-    
 }

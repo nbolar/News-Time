@@ -72,6 +72,7 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.textColor = .white
         return cell
         
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -80,14 +81,14 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
             self.delegate?.popoverContent(controller: self, didselectItem: selectedSource)
             SOURCES = datasourceArray[indexPath.row]
             BASE_API_URL = "https://newsapi.org/v2/\(ENDPOINT)?sources=\(SOURCES)&pageSize=50&apiKey=\(API_KEY)"
+            
         }else{
             let selectedSource = dataCountryArray2[indexPath.row]
             self.delegate?.popoverContent(controller: self, didselectItem: selectedSource)
             COUNTRY = dataCountryArray[indexPath.row].lowercased()
             BASE_API_URL = "https://newsapi.org/v2/\(ENDPOINT)?country=\(COUNTRY)&pageSize=50&apiKey=\(API_KEY)"
         }
-
-        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "alpha"), object: nil)
         self.dismiss(animated: true, completion: nil)
         
     }

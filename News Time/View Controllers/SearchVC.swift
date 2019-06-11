@@ -45,20 +45,77 @@ class SearchVC: UIViewController, PullToReach {
         definesPresentationContext = true
         searchController.searchBar.delegate = self
 //        searchController.searchResultsUpdater = self
-
+        
+        if collectionView.backgroundColor == .black && darkMode == 1{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+            ]
+            searchController.searchBar.tintColor = .white
+            navigationController?.navigationBar.barStyle = .black
+        }else if collectionView.backgroundColor == .white && darkMode == 0{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+            ]
+            searchController.searchBar.tintColor = .black
+            navigationController?.navigationBar.barStyle = .default
+            searchController.searchBar.keyboardAppearance = .light
+        }
         let timeInterval = 1.0
         collectionView.hero.modifiers = [.scale(1.2), .duration(timeInterval)]
         for cell in collectionView.visibleCells
         {
             cell.hero.modifiers = [.fade, .scale(0.5)]
         }
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(setBackground), name: NSNotification.Name(rawValue: "alpha2"), object: nil)
   
         
     }
     
+    
     func searchBarIsEmpty() -> Bool {
         // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func setBackground(){
+//        print("Hello")
+        if collectionView.backgroundColor == .black && darkMode == 0{
+            collectionView.backgroundColor = .white
+            scrollView.indicatorStyle = .black
+            navigationController?.navigationBar.barStyle = .default
+            navigationController?.navigationBar.barTintColor = .white
+            navigationController?.view.backgroundColor = .white
+            searchController.searchBar.backgroundColor = .white
+            navigationItem.titleView?.backgroundColor = .clear
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+            ]
+            searchController.searchBar.tintColor = .black
+            tabBarController?.tabBar.barTintColor = .white
+            tabBarController?.tabBar.tintColor = .black
+            searchController.searchBar.keyboardAppearance = .light
+
+        }else if collectionView.backgroundColor == .white && darkMode == 1{
+            scrollView.indicatorStyle = .white
+            navigationController?.navigationBar.barTintColor = .black
+            navigationController?.view.backgroundColor = .black
+            navigationController?.navigationBar.barStyle = .black
+            collectionView.backgroundColor = .black
+            searchController.searchBar.tintColor = .white
+            navigationItem.titleView?.tintColor = .white
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+            ]
+            searchController.searchBar.tintColor = .white
+            tabBarController?.tabBar.barTintColor = .black
+            tabBarController?.tabBar.tintColor = .white
+            searchController.searchBar.keyboardAppearance = .dark
+        }
     }
 
     

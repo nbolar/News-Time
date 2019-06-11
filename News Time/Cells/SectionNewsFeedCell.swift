@@ -15,8 +15,19 @@ class SectionNewsFeedCell: UICollectionViewCell {
     @IBOutlet weak var datePostedLabel: UILabel!
     
     override func awakeFromNib() {
-        self.layer.backgroundColor = UIColor.init(white: 0.9, alpha: 0.2).cgColor
-        self.layer.cornerRadius = 10
+//        self.layer.backgroundColor = UIColor.init(white: 0.9, alpha: 0.2).cgColor
+        contentView.layer.cornerRadius = 15.0
+        contentView.layer.borderWidth = 2.0
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.masksToBounds = true
+        contentView.backgroundColor = UIColor.init(white: 0.5, alpha: 0.4)
+        
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowRadius = 5
+        layer.shadowOpacity = 1.0
+        layer.masksToBounds = false
+        layer.backgroundColor = UIColor.clear.cgColor
         
     }
     
