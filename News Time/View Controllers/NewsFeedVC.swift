@@ -142,52 +142,64 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 //    @objc func downloadCompleted(){
 //        print("Download Completed")
 //    }
+    
+    func enableDarkMode(){
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.barTintColor = .black
+        navigationController?.navigationBar.backgroundColor = .clear
+        view.backgroundColor = .black
+        sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black, for: .normal)
+        refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+        layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+        countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+        collectionView.backgroundColor = .black
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+        ]
+        tabBarController?.tabBar.barTintColor = .black
+        tabBarController?.tabBar.tintColor = .white
+        spinner.color = .white
+    }
+    
+    
+    func disableDarkMode(){
+        collectionView.backgroundColor = .white
+        view.backgroundColor = .white
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.barStyle = .default
+        sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white, for: .normal)
+        refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+        layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+        countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+        self.navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+        ]
+        tabBarController?.tabBar.barTintColor = .white
+        tabBarController?.tabBar.tintColor = .black
+        spinner.color = .black
+        
+    }
+    
+    
     @objc func doubleTap(_ sender : UILongPressGestureRecognizer) {
         if sender.state == .began{
   
             if collectionView.backgroundColor == .black{
                 darkMode = 0
                 postNotification()
-                collectionView.backgroundColor = .white
-                view.backgroundColor = .white
-                navigationController?.navigationBar.barTintColor = .white
-                navigationController?.navigationBar.backgroundColor = .clear
-                navigationController?.navigationBar.barStyle = .default
-                sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white, for: .normal)
-                refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
-                layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
-                countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
-                self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                    NSAttributedString.Key.foregroundColor: UIColor.black,
-                    NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-                ]
-                tabBarController?.tabBar.barTintColor = .white
-                tabBarController?.tabBar.tintColor = .black
-                spinner.color = .black
-                
-                
+                disableDarkMode()
             }else{
                 darkMode = 1
                 postNotification()
-                navigationController?.navigationBar.barStyle = .black
-                navigationController?.navigationBar.barTintColor = .black
-                navigationController?.navigationBar.backgroundColor = .clear
-                view.backgroundColor = .black
-                sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black, for: .normal)
-                refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
-                layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
-                countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
-                collectionView.backgroundColor = .black
-                self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                    NSAttributedString.Key.foregroundColor: UIColor.white,
-                    NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-                ]
-                tabBarController?.tabBar.barTintColor = .black
-                tabBarController?.tabBar.tintColor = .white
-                spinner.color = .white
+                enableDarkMode()
             }
         }
     }
+    
+    
     func postNotification(){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "alpha2"), object: nil)
     }
