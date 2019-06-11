@@ -26,11 +26,11 @@ class SearchVC: UIViewController, PullToReach {
         
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-        searchController.searchBar.becomeFirstResponder()
-        navigationItem.searchController?.searchBar.becomeFirstResponder()
-        searchController.searchBar.keyboardAppearance = .dark
-        searchController.searchBar.showsCancelButton = false
-        searchController.searchBar.tintColor = .white
+//        searchController.searchBar.becomeFirstResponder()
+//        navigationItem.searchController?.searchBar.becomeFirstResponder()
+//        searchController.searchBar.keyboardAppearance = .dark
+//        searchController.searchBar.showsCancelButton = false
+//        searchController.searchBar.tintColor = .white
         
         collectionView.scrollsToTop = true
         collectionView.dataSource = self
@@ -46,20 +46,6 @@ class SearchVC: UIViewController, PullToReach {
         searchController.searchBar.delegate = self
 //        searchController.searchResultsUpdater = self
         
-        if collectionView.backgroundColor == .black && darkMode == 1{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-            ]
-            searchController.searchBar.tintColor = .white
-            navigationController?.navigationBar.barStyle = .black
-        }else if collectionView.backgroundColor == .white && darkMode == 0{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.black,
-            ]
-            searchController.searchBar.tintColor = .black
-            navigationController?.navigationBar.barStyle = .default
-            searchController.searchBar.keyboardAppearance = .light
-        }
         let timeInterval = 1.0
         collectionView.hero.modifiers = [.scale(1.2), .duration(timeInterval)]
         for cell in collectionView.visibleCells
@@ -71,6 +57,23 @@ class SearchVC: UIViewController, PullToReach {
         NotificationCenter.default.addObserver(self, selector: #selector(setBackground), name: NSNotification.Name(rawValue: "alpha2"), object: nil)
   
         
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if darkMode == 1{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+            ]
+            searchController.searchBar.tintColor = .white
+            navigationController?.navigationBar.barStyle = .black
+            searchController.searchBar.keyboardAppearance = .dark
+        }else if darkMode == 0{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+            ]
+            searchController.searchBar.tintColor = .black
+            navigationController?.navigationBar.barStyle = .default
+            searchController.searchBar.keyboardAppearance = .light
+        }
     }
     
     
@@ -84,7 +87,7 @@ class SearchVC: UIViewController, PullToReach {
     
     @objc func setBackground(){
 //        print("Hello")
-        if collectionView.backgroundColor == .black && darkMode == 0{
+        if darkMode == 0{
             collectionView.backgroundColor = .white
             scrollView.indicatorStyle = .black
             navigationController?.navigationBar.barStyle = .default
@@ -96,11 +99,9 @@ class SearchVC: UIViewController, PullToReach {
                 NSAttributedString.Key.foregroundColor: UIColor.black,
             ]
             searchController.searchBar.tintColor = .black
-            tabBarController?.tabBar.barTintColor = .white
-            tabBarController?.tabBar.tintColor = .black
             searchController.searchBar.keyboardAppearance = .light
 
-        }else if collectionView.backgroundColor == .white && darkMode == 1{
+        }else if darkMode == 1{
             scrollView.indicatorStyle = .white
             navigationController?.navigationBar.barTintColor = .black
             navigationController?.view.backgroundColor = .black
@@ -112,8 +113,6 @@ class SearchVC: UIViewController, PullToReach {
                 NSAttributedString.Key.foregroundColor: UIColor.white,
             ]
             searchController.searchBar.tintColor = .white
-            tabBarController?.tabBar.barTintColor = .black
-            tabBarController?.tabBar.tintColor = .white
             searchController.searchBar.keyboardAppearance = .dark
         }
     }

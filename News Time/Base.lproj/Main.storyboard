@@ -226,7 +226,7 @@
                             </connections>
                         </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="64" y="7" width="216" height="30"/>
+                            <rect key="frame" x="55.5" y="7" width="216" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <state key="normal" title="Button">
@@ -438,6 +438,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="sLf-NB-Csv" kind="relationship" relationship="rootViewController" id="idX-A7-6uU"/>
@@ -618,6 +621,6 @@
         <image name="wallpaper1" width="3629" height="3341"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nvb-Sh-uIb"/>
+        <segue reference="eho-zY-HAh"/>
     </inferredMetricsTieBreakers>
 </document>
