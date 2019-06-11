@@ -26,8 +26,8 @@ class SearchVC: UIViewController, PullToReach {
         
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
-//        searchController.searchBar.becomeFirstResponder()
-//        navigationItem.searchController?.searchBar.becomeFirstResponder()
+        searchController.searchBar.becomeFirstResponder()
+        navigationItem.searchController?.searchBar.becomeFirstResponder()
 //        searchController.searchBar.keyboardAppearance = .dark
 //        searchController.searchBar.showsCancelButton = false
 //        searchController.searchBar.tintColor = .white
@@ -53,28 +53,40 @@ class SearchVC: UIViewController, PullToReach {
             cell.hero.modifiers = [.fade, .scale(0.5)]
         }
         
+        if tabBarController?.tabBar.barTintColor == .black{
+            scrollView.indicatorStyle = .white
+            navigationController?.navigationBar.barTintColor = .black
+            navigationController?.view.backgroundColor = .black
+            navigationController?.navigationBar.barStyle = .black
+            collectionView.backgroundColor = .black
+            searchController.searchBar.tintColor = .white
+            navigationItem.titleView?.tintColor = .white
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+            ]
+            searchController.searchBar.tintColor = .white
+            searchController.searchBar.keyboardAppearance = .dark
+        }else if tabBarController?.tabBar.barTintColor == .white{
+            collectionView.backgroundColor = .white
+            scrollView.indicatorStyle = .black
+            navigationController?.navigationBar.barStyle = .default
+            navigationController?.navigationBar.barTintColor = .white
+            navigationController?.view.backgroundColor = .white
+            searchController.searchBar.backgroundColor = .white
+            navigationItem.titleView?.backgroundColor = .clear
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+            ]
+            searchController.searchBar.tintColor = .black
+            searchController.searchBar.keyboardAppearance = .light
+        }
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(setBackground), name: NSNotification.Name(rawValue: "alpha2"), object: nil)
   
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        if darkMode == 1{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-            ]
-            searchController.searchBar.tintColor = .white
-            navigationController?.navigationBar.barStyle = .black
-            searchController.searchBar.keyboardAppearance = .dark
-        }else if darkMode == 0{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.black,
-            ]
-            searchController.searchBar.tintColor = .black
-            navigationController?.navigationBar.barStyle = .default
-            searchController.searchBar.keyboardAppearance = .light
-        }
-    }
+
     
     
     func searchBarIsEmpty() -> Bool {
