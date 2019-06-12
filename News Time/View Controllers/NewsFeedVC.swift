@@ -18,12 +18,12 @@ var popoverButton = 0
 var darkMode = 1
 
 class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, PullToReach {
- 
-    
-    
+
     var scrollView: UIScrollView {
         return collectionView
     }
+    
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var countryButton: UIBarButtonItem!
     @IBOutlet weak var sourcesButton: UIButton!
@@ -31,8 +31,10 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     let button = UIButton(type: UIButton.ButtonType.system) as UIButton
     let label = UILabel()
     let refreshControl = UIRefreshControl()
+    let trackLayer = CAShapeLayer()
+    let shapeLayer = CAShapeLayer()
   
-    @IBOutlet weak var collectionView: UICollectionView!
+    
     
     var spinner = UIActivityIndicatorView(style: .whiteLarge)
     
@@ -107,9 +109,10 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
         
         NotificationCenter.default.addObserver(self, selector: #selector(setAlpha), name: NSNotification.Name(rawValue: "alpha"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeLoader), name: NSNotification.Name(rawValue: "alpha2"), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(downloadCompleted), name: NOTIF_DOWNLOAD_COMPLETE, object: nil)
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(doubleTap(_:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(_:)))
         longPress.cancelsTouchesInView = false
         longPress.minimumPressDuration = 0.7
 
@@ -131,10 +134,81 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             navigationController?.navigationBar.barStyle = .default
             spinner.color = .black
         }
+        
+        
 
         // Do any additional setup after loading the view.
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMMM d"
+        updatedString = "\(formatter.string(from: currentDateTime))"
+        
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+        
+        self.title = "News Feed \n\(updatedString!)"
+        if collectionView.backgroundColor == .black{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.white,
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+            ]
+        }else{
+            self.navigationController?.navigationBar.largeTitleTextAttributes = [
+                NSAttributedString.Key.foregroundColor: UIColor.black,
+                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
+            ]
+        }
+        
+        
+        for navItem in(self.navigationController?.navigationBar.subviews)! {
+            for itemSubView in navItem.subviews {
+                if let largeLabel = itemSubView as? UILabel {
+                    largeLabel.text = self.title
+                    largeLabel.numberOfLines = 0
+                    largeLabel.sizeToFit()
+                    largeLabel.lineBreakMode = .byCharWrapping
+                }
+            }
+        }
+        createLoader()
+        
+    }
+    @objc func changeLoader(){
+        createLoader()
+    }
+
+    
+    func createLoader(){
+
+        let circularPath = UIBezierPath(arcCenter: view.center, radius: 30, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+        
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.gray.cgColor
+        trackLayer.lineWidth = 2
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = CAShapeLayerLineCap.round
+        
+        shapeLayer.path = circularPath.cgPath
+        if darkMode == 1{
+            shapeLayer.strokeColor = UIColor.white.cgColor
+        }else if darkMode == 0{
+            shapeLayer.strokeColor = UIColor.black.cgColor
+        }
+        
+        shapeLayer.lineWidth = 2
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.strokeEnd = 0
+        
+        
+        
+    }
+    
     
 //    @objc func downloadCompleted(){
 //        print("Download Completed")
@@ -181,7 +255,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     }
     
     
-    @objc func doubleTap(_ sender : UILongPressGestureRecognizer) {
+    @objc func longPressAction(_ sender : UILongPressGestureRecognizer) {
         if sender.state == .began{
   
             if collectionView.backgroundColor == .black{
@@ -205,44 +279,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         NotificationCenter.default.removeObserver(self)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        
-        let currentDateTime = Date()
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d"
-        updatedString = "\(formatter.string(from: currentDateTime))"
-
-        self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
-        
-        self.title = "News Feed \n\(updatedString!)"
-        if collectionView.backgroundColor == .black{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-            ]
-        }else{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.black,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-            ]
-        }
-
-        
-        for navItem in(self.navigationController?.navigationBar.subviews)! {
-            for itemSubView in navItem.subviews {
-                if let largeLabel = itemSubView as? UILabel {
-                    largeLabel.text = self.title
-                    largeLabel.numberOfLines = 0
-                    largeLabel.sizeToFit()
-                    largeLabel.lineBreakMode = .byCharWrapping
-                }
-            }
-        }
-        
-//        navigationItem.titleView = setTitle(title: "News Feed", subtitle: "\(updatedString!)")
-        
-    }
     
     @objc func showCountryButton(){
         showCountryPopoverClicked((Any).self)
@@ -360,26 +396,26 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
     
     @IBAction func refreshButtonClicked(_ sender: Any) {
-        let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
-        anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
-        anim.duration = 0.8
-        anim.repeatCount = 2
-        anim.autoreverses = true
-        anim.isRemovedOnCompletion = true
-        anim.toValue = NSValue.init(caTransform3D: CATransform3DMakeScale(1.2, 1.2, 1.2))
-        label.layer.add(anim, forKey: nil)
+//        let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
+//        anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
+//        anim.duration = 0.8
+//        anim.repeatCount = 2
+//        anim.autoreverses = true
+//        anim.isRemovedOnCompletion = true
+//        anim.toValue = NSValue.init(caTransform3D: CATransform3DMakeScale(1.2, 1.2, 1.2))
+//        label.layer.add(anim, forKey: nil)
         
-        let barButtonItem = self.navigationItem.rightBarButtonItems?[0]
-        guard let view = barButtonItem?.value(forKey: "view") as? UIView else { return }
-        
-        view.transform = CGAffineTransform(rotationAngle: CGFloat())
-        
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
-        rotationAnimation.duration = 2
-        rotationAnimation.repeatCount = 0
-        
-        view.layer.add(rotationAnimation, forKey: "rotationAnimation")
+//        let barButtonItem = self.navigationItem.rightBarButtonItems?[0]
+//        guard let view = barButtonItem?.value(forKey: "view") as? UIView else { return }
+//
+//        view.transform = CGAffineTransform(rotationAngle: CGFloat())
+//
+//        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+//        rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
+//        rotationAnimation.duration = 2
+//        rotationAnimation.repeatCount = 0
+//
+//        view.layer.add(rotationAnimation, forKey: "rotationAnimation")
         
         refreshNewsFeed((Any).self)
         refreshButton.isEnabled = false
@@ -390,11 +426,14 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     
     
     @objc private func refreshNewsFeed(_ sender: Any) {
-        spinner.startAnimating()
-        view.addSubview(spinner)
-        
-        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        view.layer.addSublayer(trackLayer)
+        view.layer.addSublayer(shapeLayer)
+        animateLoader()
+//        spinner.startAnimating()
+//        view.addSubview(spinner)
+//
+//        spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         let appdelegate = UIApplication.shared.delegate as! AppDelegate
         appdelegate.downloadNewsArticles()
@@ -408,9 +447,22 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         
     }
     
+    func animateLoader(){
+        let anim = CABasicAnimation(keyPath: "strokeEnd")
+        anim.toValue = 1
+        anim.duration = 2
+        
+        anim.fillMode = CAMediaTimingFillMode.forwards
+        anim.isRemovedOnCompletion = false
+        shapeLayer.add(anim, forKey: "animation")
+    
+    }
+    
     @objc func stopRefreshing(){
-        spinner.stopAnimating()
-        spinner.removeFromSuperview()
+        trackLayer.removeFromSuperlayer()
+        shapeLayer.removeFromSuperlayer()
+//        spinner.stopAnimating()
+//        spinner.removeFromSuperview()
         collectionView.isHidden = false
         label.isHidden = true
         collectionView.reloadData()
