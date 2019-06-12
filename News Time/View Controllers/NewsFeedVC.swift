@@ -33,8 +33,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     let refreshControl = UIRefreshControl()
     let trackLayer = CAShapeLayer()
     let shapeLayer = CAShapeLayer()
-  
-    
     
     var spinner = UIActivityIndicatorView(style: .whiteLarge)
     
@@ -61,49 +59,13 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         label.hero.modifiers = [.fade, .translate(x: 0, y: -300, z: 0)]
         
         spinner.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let xPostion:CGFloat = view.bounds.width / 2 - 50
-        let yPostion:CGFloat = view.bounds.height - 48
-        let buttonWidth:CGFloat = 100
-        let buttonHeight:CGFloat = 25
-        
-        
-        let labelXPostion:CGFloat = view.bounds.width / 2 - 115
-        let labelYPostion:CGFloat = 180
-        let labelWidth:CGFloat = 230
-        let labelHeight:CGFloat = 25
-        
-        
-        label.frame = CGRect(x: labelXPostion, y: labelYPostion, width: labelWidth, height: labelHeight)
-        label.text = "Fetching Latest News Articles"
-        label.textColor = .gray
-        label.backgroundColor = .clear
-        
-        button.frame = CGRect(x:xPostion, y:yPostion, width:buttonWidth, height:buttonHeight)
-        button.layer.cornerRadius = 12
-        button.backgroundColor = .white
-        button.setTitle("Scroll to Top", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.alpha = 0.7
-        button.addTarget(self, action: #selector(self.buttonAction(_:)), for: .touchUpInside)
-        
-        refreshControl.addTarget(self, action: #selector(refreshNewsFeed(_:)), for: .valueChanged)
-        let refreshString = "Fetching Latest News Articles"
-        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white]
-        refreshControl.attributedTitle = NSAttributedString(string: refreshString, attributes: attributes)
-        refreshControl.tintColor = .white
-    
+
         refreshButton.action = #selector(refreshNewsFeedButton)
         countryButton.action = #selector(showCountryButton)
         layoutButton.action = #selector(layoutButtonClicked)
 
         navigationItem.title = "News Feed"
-        
-//        collectionView.refreshControl = refreshControl
-        
         self.navigationItem.rightBarButtonItems = [refreshButton, countryButton]
-        
         self.navigationItem.leftBarButtonItems = [layoutButton]
         self.activatePullToReach(on: navigationItem, highlightColor: .lightGray)
 
@@ -115,27 +77,17 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(_:)))
         longPress.cancelsTouchesInView = false
         longPress.minimumPressDuration = 0.7
-
-        
-    
         tabBarController?.tabBar.addGestureRecognizer(longPress)
         
         if collectionView.backgroundColor == .black{
-            self.view.backgroundColor = .black
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-            ]
-            navigationController?.navigationBar.barStyle = .black
+            enableDarkMode()
         }else{
-            self.view.backgroundColor = .white
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.black,
-            ]
-            navigationController?.navigationBar.barStyle = .default
-            spinner.color = .black
+            disableDarkMode()
         }
         
-        
+        createScrollButton()
+        createLabel()
+        refreshControlSetup()
 
         // Do any additional setup after loading the view.
         
@@ -153,18 +105,10 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         
         self.title = "News Feed \n\(updatedString!)"
         if collectionView.backgroundColor == .black{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.white,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-            ]
+            enableDarkMode()
         }else{
-            self.navigationController?.navigationBar.largeTitleTextAttributes = [
-                NSAttributedString.Key.foregroundColor: UIColor.black,
-                NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
-            ]
+            disableDarkMode()
         }
-        
-        
         for navItem in(self.navigationController?.navigationBar.subviews)! {
             for itemSubView in navItem.subviews {
                 if let largeLabel = itemSubView as? UILabel {
@@ -178,6 +122,47 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         createLoader()
         
     }
+    
+    func refreshControlSetup(){
+        refreshControl.addTarget(self, action: #selector(refreshNewsFeed(_:)), for: .valueChanged)
+        let refreshString = "Fetching Latest News Articles"
+        let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.white]
+        refreshControl.attributedTitle = NSAttributedString(string: refreshString, attributes: attributes)
+        refreshControl.tintColor = .white
+        //        collectionView.refreshControl = refreshControl
+    }
+    
+    func createLabel(){
+        
+        let labelXPostion:CGFloat = view.bounds.width / 2 - 115
+        let labelYPostion:CGFloat = 180
+        let labelWidth:CGFloat = 230
+        let labelHeight:CGFloat = 25
+        
+        
+        label.frame = CGRect(x: labelXPostion, y: labelYPostion, width: labelWidth, height: labelHeight)
+        label.text = "Fetching Latest News Articles"
+        label.textColor = .gray
+        label.backgroundColor = .clear
+    }
+    
+    func createScrollButton(){
+        let xPostion:CGFloat = view.bounds.width / 2 - 50
+        let yPostion:CGFloat = view.bounds.height - 48
+        let buttonWidth:CGFloat = 100
+        let buttonHeight:CGFloat = 25
+        
+        
+        button.frame = CGRect(x:xPostion, y:yPostion, width:buttonWidth, height:buttonHeight)
+        button.layer.cornerRadius = 12
+        button.backgroundColor = .white
+        button.setTitle("Scroll to Top", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.alpha = 0.7
+        button.addTarget(self, action: #selector(self.buttonAction(_:)), for: .touchUpInside)
+    }
+    
+
     @objc func changeLoader(){
         createLoader()
     }
@@ -204,9 +189,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.lineCap = CAShapeLayerLineCap.round
         shapeLayer.strokeEnd = 0
-        
-        
-        
+
     }
     
     
