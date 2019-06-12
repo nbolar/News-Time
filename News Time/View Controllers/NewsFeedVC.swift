@@ -9,7 +9,7 @@
 import UIKit
 import Hero
 import PullToReach
-
+import SwipeableTabBarController
 
 var indexSelected: IndexPath!
 var updatedString : String!

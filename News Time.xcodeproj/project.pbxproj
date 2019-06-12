@@ -22,6 +22,7 @@
 		4E8F0B37229FA9D80007B8FE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F0B36229FA9D80007B8FE /* Constants.swift */; };
 		4E8F0B3A229FB3920007B8FE /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F0B39229FB3920007B8FE /* NewsService.swift */; };
 		4E8F0B3D229FB4630007B8FE /* NewsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F0B3C229FB4630007B8FE /* NewsList.swift */; };
+		4ED81A3422B0CF3500FA2E78 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED81A3322B0CF3500FA2E78 /* TabBarVC.swift */; };
 		4EE334F7229995DD0099008A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE334F6229995DD0099008A /* AppDelegate.swift */; };
 		4EE334FE229995DD0099008A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EE334FC229995DD0099008A /* Main.storyboard */; };
 		4EE33500229995DD0099008A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EE334FF229995DD0099008A /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		4E8F0B36229FA9D80007B8FE /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4E8F0B39229FB3920007B8FE /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
 		4E8F0B3C229FB4630007B8FE /* NewsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsList.swift; sourceTree = "<group>"; };
+		4ED81A3322B0CF3500FA2E78 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		4EE334F3229995DD0099008A /* News Time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "News Time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4EE334F6229995DD0099008A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4EE334FD229995DD0099008A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				4E253FE2229A8427003D6E4F /* NewsFeedVC.swift */,
+				4ED81A3322B0CF3500FA2E78 /* TabBarVC.swift */,
 				4E253FEA229ADD58003D6E4F /* DetailNewsVC.swift */,
 				4E4C1B6B229E9DBA00744352 /* LaunchViewController.swift */,
 				4E66BAD922A2516D00A52036 /* PopoverContentController.swift */,
@@ -269,6 +272,7 @@
 				"${BUILT_PRODUCTS_DIR}/PullToReach/PullToReach.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeableTabBarController/SwipeableTabBarController.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -277,6 +281,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PullToReach.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeableTabBarController.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -304,6 +309,7 @@
 				4E8F0B37229FA9D80007B8FE /* Constants.swift in Sources */,
 				4E8F0B3D229FB4630007B8FE /* NewsList.swift in Sources */,
 				4E66BADD22A3A97000A52036 /* SourceList.swift in Sources */,
+				4ED81A3422B0CF3500FA2E78 /* TabBarVC.swift in Sources */,
 				4E253FEB229ADD58003D6E4F /* DetailNewsVC.swift in Sources */,
 				4E253FE6229A97C3003D6E4F /* NewsFeedCell.swift in Sources */,
 			);

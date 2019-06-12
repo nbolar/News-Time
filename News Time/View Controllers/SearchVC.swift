@@ -65,6 +65,12 @@ class SearchVC: UIViewController, PullToReach {
   
         
     }
+    override func viewDidAppear(_ animated: Bool) {
+        if tabBarController?.tabBar.isHidden == true{
+            tabBarController?.tabBar.isHidden = false
+            
+        }
+    }
 
     
     
