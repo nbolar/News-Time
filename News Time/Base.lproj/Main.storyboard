@@ -226,7 +226,7 @@
                             </connections>
                         </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="64" y="7" width="216" height="30"/>
+                            <rect key="frame" x="55.5" y="7" width="216" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                             <state key="normal" title="Button">
@@ -284,6 +284,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VV-YN-vp6">
                                 <rect key="frame" x="25" y="45" width="25" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="MJm-yc-KcI"/>
                                     <constraint firstAttribute="width" constant="25" id="fE7-CB-DB9"/>
@@ -621,6 +622,6 @@
         <image name="wallpaper1" width="3629" height="3341"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="eho-zY-HAh"/>
+        <segue reference="Nvb-Sh-uIb"/>
     </inferredMetricsTieBreakers>
 </document>

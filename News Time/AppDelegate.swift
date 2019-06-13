@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         // Override point for customization after application launch
         downloadNewsArticles()
         getSources()
+        darkMode = UserDefaults.standard.integer(forKey: "darkMode")
+        
         monitor.pathUpdateHandler = { path in
             if path.status == .satisfied{
                 

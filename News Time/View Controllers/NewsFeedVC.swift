@@ -10,6 +10,7 @@ import UIKit
 import Hero
 import PullToReach
 import SwipeableTabBarController
+import ViewAnimator
 
 var indexSelected: IndexPath!
 var updatedString : String!
@@ -33,7 +34,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     let refreshControl = UIRefreshControl()
     let trackLayer = CAShapeLayer()
     let shapeLayer = CAShapeLayer()
-    
+    static let instance = NewsFeedVC()
     var spinner = UIActivityIndicatorView(style: .whiteLarge)
     
     override func viewDidLoad() {
@@ -50,12 +51,19 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         sourcesButton.setTitle("Sources ⩡", for: .normal)
         sourcesButton.target(forAction: #selector(showCountryButton), withSender: nil)
         
+
+        
         let timeInterval = 1.0
         collectionView.hero.modifiers = [.scale(1.2), .duration(timeInterval)]
         for cell in collectionView.visibleCells
         {
             cell.hero.modifiers = [.fade, .scale(0.5)]
         }
+//        let animations = [AnimationType.from(direction: .top, offset: 30.0)]
+//
+//        collectionView?.performBatchUpdates({
+//            UIView.animate(views: self.collectionView!.orderedVisibleCells, animations: animations, completion: nil)}, completion: nil)
+        
         label.hero.modifiers = [.fade, .translate(x: 0, y: -300, z: 0)]
         
         spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -79,7 +87,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         longPress.minimumPressDuration = 0.7
         tabBarController?.tabBar.addGestureRecognizer(longPress)
         
-        if collectionView.backgroundColor == .black{
+        if darkMode == 1{
             enableDarkMode()
         }else{
             disableDarkMode()
@@ -92,8 +100,15 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         // Do any additional setup after loading the view.
         
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        collectionView?.reloadData()
+//        collectionView?.performBatchUpdates({
+//            UIView.animate(views: self.collectionView!.orderedVisibleCells,
+//                           animations: animations, completion: nil)}, completion: nil)
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         
         let currentDateTime = Date()
         let formatter = DateFormatter()
@@ -104,11 +119,11 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         self.navigationController?.navigationItem.largeTitleDisplayMode = .automatic
         
         self.title = "News Feed \n\(updatedString!)"
-        if collectionView.backgroundColor == .black{
-            enableDarkMode()
-        }else{
-            disableDarkMode()
-        }
+//        if collectionView.backgroundColor == .black{
+//            enableDarkMode()
+//        }else{
+//            disableDarkMode()
+//        }
         for navItem in(self.navigationController?.navigationBar.subviews)! {
             for itemSubView in navItem.subviews {
                 if let largeLabel = itemSubView as? UILabel {
@@ -242,10 +257,12 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         if sender.state == .began{
   
             if collectionView.backgroundColor == .black{
+                UserDefaults.standard.set(0, forKey: "darkMode")
                 darkMode = 0
                 postNotification()
                 disableDarkMode()
             }else{
+                UserDefaults.standard.set(1, forKey: "darkMode")
                 darkMode = 1
                 postNotification()
                 enableDarkMode()
@@ -325,6 +342,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         /* 3 */
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .up
+//            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 1)
             popoverPresentationController.sourceView = self.sourcesButton
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.delegate = self

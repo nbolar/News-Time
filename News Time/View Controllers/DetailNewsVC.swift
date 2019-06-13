@@ -9,6 +9,7 @@
 import UIKit
 import Hero
 import SafariServices
+import ViewAnimator
 
 var viewControllerClicked = 0
 
@@ -36,11 +37,12 @@ class DetailNewsVC: UIViewController {
         let timeInterval = 0.5
         backButton.hero.modifiers = [.fade, .translate(x: 0, y: -150, z: 0), .duration(1)]
         
+        
         newsArticleImage.hero.modifiers = [.translate(x: 0, y: 75, z: 0), .duration(timeInterval)]
         articleHeadline.hero.modifiers = [.scale(1.2), .duration(1)]
         newsArticleContent.hero.modifiers = [.scale(1.2), .duration(1)]
         datePostedLabel.hero.modifiers = [.scale(1.9), .duration(1)]
-        openURLButton.layer.cornerRadius = 5
+        openURLButton.layer.cornerRadius = 10
         
         openURLButton.setTitle("Read the entire article ⟶", for: .normal)
         newsArticleContent.textColor = .lightGray
@@ -63,6 +65,8 @@ class DetailNewsVC: UIViewController {
 
 
     override func viewDidAppear(_ animated: Bool) {
+        backButton.tintColor = newsArticleContent.backgroundColor?.isDarkColor == true ? .white : .black
+        
         let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
         anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
         anim.duration = 0.8
@@ -106,7 +110,9 @@ class DetailNewsVC: UIViewController {
         }else{
             safariController.preferredBarTintColor = .black
         }
-        
+        let animation = AnimationType.from(direction: .bottom, offset: 30.0)
+        safariController.view.animate(animations: [animation])
+
         present(safariController, animated: true, completion: nil)
         
     }

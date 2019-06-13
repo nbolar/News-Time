@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ViewAnimator
 
 var datasourceArray = ["abc-news", "al-jazeera-english", "ars-technica", "associated-press", "bbc-news", "bbc-sport", "bloomberg", "business-insider", "buzzfeed", "cbs-news", "cnn"]
 var datasourceArray2 = ["ABC News", "Al Jazeera English", "Ars Technica", "Associated Press", "BBC News", "BBC Sport", "Bloomberg", "Business Insider", "Buzzfeed", "CBS News", "CNN"]
@@ -20,6 +21,7 @@ protocol PopoverContentControllerDelegate:class {
 
 
 class PopoverContentController: UIViewController {
+    private let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
 
     @IBOutlet weak var tableView: UITableView!
     var delegate:PopoverContentControllerDelegate?
@@ -35,6 +37,8 @@ class PopoverContentController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
+        UIView.animate(views: tableView.visibleCells, animations: animations, completion: nil)
         if darkMode == 1{
             tableView.backgroundColor = .black
             view.backgroundColor = .black

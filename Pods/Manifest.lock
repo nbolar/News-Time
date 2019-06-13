@@ -7,6 +7,7 @@ PODS:
   - SDWebImage/Core (5.0.4)
   - SwiftyJSON (4.3.0)
   - SwipeableTabBarController (2.1.1)
+  - ViewAnimator (2.5.1)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-beta.2)
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - SDWebImage (~> 5.0)
   - SwiftyJSON
   - SwipeableTabBarController
+  - ViewAnimator
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -24,6 +26,7 @@ SPEC REPOS:
     - SDWebImage
     - SwiftyJSON
     - SwipeableTabBarController
+    - ViewAnimator
 
 SPEC CHECKSUMS:
   Alamofire: cd08a4402bd12cacd0c66f23fb12fec8d6b965e4
@@ -32,7 +35,8 @@ SPEC CHECKSUMS:
   SDWebImage: c739016e4bdf0a4a1f9a04b5e0385395ad63a282
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   SwipeableTabBarController: 8f7f04275f510c5babb630f7be1161b5f28567e0
+  ViewAnimator: 173932c659a43c5a15c665878750d92801ae2cf1
 
-PODFILE CHECKSUM: b2df496c454c78eb1155c9b8e671639bb170f02b
+PODFILE CHECKSUM: b1a7edfe49db2fdb4fc8a461edc699c8d64a352b
 
 COCOAPODS: 1.5.2

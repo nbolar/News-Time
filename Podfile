@@ -14,5 +14,6 @@ target 'News Time' do
   pod 'SDWebImage', '~> 5.0'
   pod 'PullToReach'
   pod 'SwipeableTabBarController'
+  pod 'ViewAnimator'
 
 end
