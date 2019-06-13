@@ -52,13 +52,16 @@ class DetailNewsVC: UIViewController {
         datePostedLabel.text = "◉ \(datePosted)"
         let editedImageURL = URL(string: imageURL)
         newsArticleImage.sd_setImage(with: editedImageURL, placeholderImage: UIImage(named: "placeholder"), options: .init(), completed: nil)
-    
-//        newsArticleContent.scrollRangeToVisible(NSMakeRange(0, 0))
         
-        
-
+        if darkMode == 0{
+            disableDarkMode()
+        }else if darkMode == 1{
+            enableDarkMode()
+        }
         // Do any additional setup after loading the view.
     }
+
+
     override func viewDidAppear(_ animated: Bool) {
         let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
         anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
@@ -68,6 +71,28 @@ class DetailNewsVC: UIViewController {
         anim.isRemovedOnCompletion = true
         anim.toValue = NSValue.init(caTransform3D: CATransform3DMakeScale(1.1, 1.1, 1.1))
         openURLButton.layer.add(anim, forKey: nil)
+
+    }
+    
+    func enableDarkMode(){
+        view.backgroundColor = .black
+        openURLButton.backgroundColor = .white
+        openURLButton.setTitleColor(.black, for: .normal)
+        datePostedLabel.textColor = .lightGray
+        articleHeadline.textColor = .white
+        newsArticleContent.textColor = .white
+        newsArticleContent.backgroundColor = .black
+        
+    }
+    
+    func disableDarkMode(){
+        view.backgroundColor = .white
+        openURLButton.backgroundColor = .black
+        openURLButton.setTitleColor(.white, for: .normal)
+        datePostedLabel.textColor = .lightGray
+        articleHeadline.textColor = .black
+        newsArticleContent.textColor = .black
+        newsArticleContent.backgroundColor = .white
     }
     
     @IBAction func openURLButtonClicked(_ sender: Any) {
@@ -76,9 +101,12 @@ class DetailNewsVC: UIViewController {
 //        config.entersReaderIfAvailable = true
         let safariController = SFSafariViewController.init(url: editedContentURl!, configuration: config)
         safariController.delegate = self as? SFSafariViewControllerDelegate
-        safariController.preferredBarTintColor = .black
-//        safariController.hero.isEnabled = true
-//        safariController.hero.modalAnimationType = .selectBy(presenting: .pull(direction: .left), dismissing: .slide(direction: .down))
+        if darkMode == 0{
+            safariController.preferredBarTintColor = .white
+        }else{
+            safariController.preferredBarTintColor = .black
+        }
+        
         present(safariController, animated: true, completion: nil)
         
     }

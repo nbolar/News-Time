@@ -114,7 +114,6 @@ class SearchVC: UIViewController, PullToReach {
     }
     
     @objc func setBackground(){
-//        print("Hello")
         if darkMode == 0{
             disableDarkMode()
 

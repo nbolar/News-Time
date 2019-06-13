@@ -101,8 +101,8 @@
 		4E253FDB229A78D2003D6E4F /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4E253FE2229A8427003D6E4F /* NewsFeedVC.swift */,
 				4ED81A3322B0CF3500FA2E78 /* TabBarVC.swift */,
+				4E253FE2229A8427003D6E4F /* NewsFeedVC.swift */,
 				4E253FEA229ADD58003D6E4F /* DetailNewsVC.swift */,
 				4E4C1B6B229E9DBA00744352 /* LaunchViewController.swift */,
 				4E66BAD922A2516D00A52036 /* PopoverContentController.swift */,
