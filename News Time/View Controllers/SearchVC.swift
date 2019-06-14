@@ -28,15 +28,13 @@ class SearchVC: UIViewController, PullToReach {
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.becomeFirstResponder()
         navigationItem.searchController?.searchBar.becomeFirstResponder()
-//        searchController.searchBar.keyboardAppearance = .dark
-//        searchController.searchBar.showsCancelButton = false
-//        searchController.searchBar.tintColor = .white
+
         
         collectionView.scrollsToTop = true
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.reloadData()
-//        collectionView.alwaysBounceVertical = true
+        collectionView.alwaysBounceVertical = true
         
 //        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false

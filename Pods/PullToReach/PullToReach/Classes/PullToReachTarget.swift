@@ -35,6 +35,7 @@ extension UIBarButtonItem: PullToReachTarget {
         guard let view = self.value(forKey: "view") as? UIView else { return }
         guard let selectionIndicator = addSelectionIndicatorView() else { return }
         guard let navigationBar = view.firstSuperview(ofType: UINavigationBar.self) else { return }
+        
 
         let scale: CGFloat = isHighlighted ? 1.25 : 1.0
         let selectionIndicatorSize: CGFloat = view.bounds.height * 1.2

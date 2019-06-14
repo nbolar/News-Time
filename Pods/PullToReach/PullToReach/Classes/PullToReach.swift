@@ -74,7 +74,7 @@ public extension PullToReach {
                              direction: PTRDirection = .rightToLeft,
                              highlightColor: UIColor = UIColor.black.withAlphaComponent(0.1)) {
         let barButtonItems: [UIBarButtonItem]
-
+ 
         switch direction {
         case .leftToRight:
             barButtonItems = (navigationItem.leftBarButtonItems ?? []) + (navigationItem.rightBarButtonItems ?? []).reversed()

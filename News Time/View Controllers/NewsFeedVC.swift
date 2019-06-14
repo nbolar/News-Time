@@ -29,6 +29,8 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     @IBOutlet weak var countryButton: UIBarButtonItem!
     @IBOutlet weak var sourcesButton: UIButton!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
+    @IBOutlet weak var categoryButton: UIBarButtonItem!
+    
     let button = UIButton(type: UIButton.ButtonType.system) as UIButton
     let label = UILabel()
     let refreshControl = UIRefreshControl()
@@ -71,10 +73,11 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         refreshButton.action = #selector(refreshNewsFeedButton)
         countryButton.action = #selector(showCountryButton)
         layoutButton.action = #selector(layoutButtonClicked)
+        categoryButton.action = #selector(showCategoryButton)
 
         navigationItem.title = "News Feed"
         self.navigationItem.rightBarButtonItems = [refreshButton, countryButton]
-        self.navigationItem.leftBarButtonItems = [layoutButton]
+        self.navigationItem.leftBarButtonItems = [layoutButton, categoryButton]
         self.activatePullToReach(on: navigationItem, highlightColor: .lightGray)
 
         
@@ -278,6 +281,10 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    @objc func showCategoryButton(){
+        showCategoryPopoverClicked((Any).self)
+    }
 
     
     @objc func showCountryButton(){
@@ -286,6 +293,35 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     
     @objc func showSourcesButton(){
         showPopoverButtonClicked((Any).self)
+    }
+    
+    
+    @IBAction func showCategoryPopoverClicked(_ sender: Any) {
+        popoverButton = 3
+        
+        //Configure the presentation controller
+        let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier: "PopoverContentController") as? PopoverContentController
+        popoverContentController?.modalPresentationStyle = .popover
+        popoverContentController?.preferredContentSize = CGSize(width: 155, height: 200)
+        
+        /* 3 */
+        if let popoverPresentationController = popoverContentController?.popoverPresentationController {
+            popoverPresentationController.permittedArrowDirections = .up
+            popoverPresentationController.barButtonItem = self.categoryButton
+            if darkMode == 1{
+                popoverPresentationController.backgroundColor = .black
+            }else{
+                popoverPresentationController.backgroundColor = .white
+            }
+            popoverPresentationController.delegate = self
+            
+            popoverContentController?.delegate = self as PopoverContentControllerDelegate
+            if let popoverController = popoverContentController {
+                present(popoverController, animated: true, completion: nil)
+                
+                
+            }
+        }
     }
     
     

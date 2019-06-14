@@ -15,6 +15,8 @@ var datasourceArray2 = ["ABC News", "Al Jazeera English", "Ars Technica", "Assoc
 var dataCountryArray = ["ar", "at", "au", "be", "bg", "br", "ca", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "sg", "se", "ch", "si", "sk", "za", "th", "tr", "tw", "ae", "ua", "us", "ve"]
 var dataCountryArray2 = [ "Argentina", "Austria", "Australia", "Belgium", "Bulgaria", "Brazil", "Canada", "China", "Colombia", "Cuba", "Czech Republic", "Germany", "Egypt", "France", "Great Britain", "Greece", "Hong Kong", "Hungary", "Indonesia", "Ireland", "Israel", "India", "Italy", "Japan", "South Korea", "Lithuania", "Latvia", "Morocco", "Mexico", "Malaysia", "Nigeria", "Netherlands", "Norway", "New Zealand", "Philippines", "Poland", "Portugal", "Romania", "Serbia", "Russia", "Saudi Arabia", "Singapore", "Sweden" , "Switzerland", "Slovenia", "Slovakia", "South Africa", "Thailand", "Turkey", "Taiwan", "UAE","Ukraine", "USA", "Venezuela" ]
 
+var categoryArray = ["Business","Entertainment", "General", "Health", "Science", "Sports", "Technology"]
+
 protocol PopoverContentControllerDelegate:class {
     func popoverContent(controller:PopoverContentController, didselectItem name:String)
 }
@@ -69,8 +71,10 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if popoverButton == 2{
             return datasourceArray.count
-        }else{
+        }else if popoverButton == 1{
             return dataCountryArray.count
+        }else{
+            return categoryArray.count
         }
         
     }
@@ -79,8 +83,10 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SourcesCell", for: indexPath)
         if popoverButton == 1{
             cell.textLabel?.text = dataCountryArray2[indexPath.row]
-        }else{
+        }else if popoverButton == 2{
             cell.textLabel?.text = datasourceArray2[indexPath.row]
+        }else{
+            cell.textLabel?.text = categoryArray[indexPath.row]
         }
         if darkMode == 0{
             cell.contentView.backgroundColor = .white
@@ -103,11 +109,15 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
             SOURCES = datasourceArray[indexPath.row]
             BASE_API_URL = "https://newsapi.org/v2/\(ENDPOINT)?sources=\(SOURCES)&pageSize=50&apiKey=\(API_KEY)"
             
-        }else{
+        }else if popoverButton == 1{
             let selectedSource = dataCountryArray2[indexPath.row]
             self.delegate?.popoverContent(controller: self, didselectItem: selectedSource)
             COUNTRY = dataCountryArray[indexPath.row].lowercased()
             BASE_API_URL = "https://newsapi.org/v2/\(ENDPOINT)?country=\(COUNTRY)&pageSize=50&apiKey=\(API_KEY)"
+        }else{
+            let selectedSource = categoryArray[indexPath.row]
+            self.delegate?.popoverContent(controller: self, didselectItem: selectedSource)
+            BASE_API_URL = "https://newsapi.org/v2/\(ENDPOINT)?country=\(COUNTRY)&category=\(selectedSource)&pageSize=50&apiKey=\(API_KEY)"
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "alpha"), object: nil)
         self.dismiss(animated: true, completion: nil)

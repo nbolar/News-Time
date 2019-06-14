@@ -219,16 +219,24 @@
                     </view>
                     <navigationItem key="navigationItem" id="0nB-VM-6Ok">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="list" id="BcD-KD-dZf">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="changeLayout:" destination="yhG-BZ-NeM" id="nFa-Yp-NQT"/>
-                            </connections>
-                        </barButtonItem>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="55.5" y="7" width="216" height="30"/>
+                        <leftBarButtonItems>
+                            <barButtonItem title="Item" image="list" id="BcD-KD-dZf">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="changeLayout:" destination="yhG-BZ-NeM" id="nFa-Yp-NQT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="options" id="ArP-La-yaZ">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="showCategoryPopoverClicked:" destination="yhG-BZ-NeM" id="wcR-pI-sk6"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
+                            <rect key="frame" x="94" y="7" width="198" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                             <state key="normal" title="Button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
@@ -255,6 +263,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="categoryButton" destination="ArP-La-yaZ" id="Qgz-zx-AyD"/>
                         <outlet property="collectionView" destination="eAo-Z5-69h" id="T9t-ES-JjF"/>
                         <outlet property="countryButton" destination="uKy-Zr-XEy" id="8j8-u1-MEb"/>
                         <outlet property="layoutButton" destination="BcD-KD-dZf" id="UnP-rQ-lZc"/>
@@ -618,6 +627,7 @@
         <image name="list" width="16.666666030883789" height="16.666666030883789"/>
         <image name="newsAPI" width="400" height="400"/>
         <image name="newsicon" width="512" height="512"/>
+        <image name="options" width="16" height="16"/>
         <image name="refresh" width="24" height="24"/>
         <image name="wallpaper1" width="3629" height="3341"/>
     </resources>
