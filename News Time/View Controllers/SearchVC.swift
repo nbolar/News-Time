@@ -39,7 +39,7 @@ class SearchVC: UIViewController, PullToReach {
 //        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search News Stories"
-        navigationItem.titleView = searchController.searchBar
+//        navigationItem.titleView = searchController.searchBar
         definesPresentationContext = true
         searchController.searchBar.delegate = self
 //        searchController.searchResultsUpdater = self
