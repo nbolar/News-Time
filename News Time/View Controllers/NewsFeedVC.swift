@@ -82,7 +82,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         navigationItem.title = "News Feed"
         self.navigationItem.rightBarButtonItems = [refreshButton, countryButton]
         self.navigationItem.leftBarButtonItems = [layoutButton, categoryButton]
-        self.activatePullToReach(on: navigationItem)
+        self.activatePullToReach(on: navigationItem, highlightColor: UIColor.lightGray.withAlphaComponent(0.45))
 
         
         NotificationCenter.default.addObserver(self, selector: #selector(setAlpha), name: NSNotification.Name(rawValue: "alpha"), object: nil)

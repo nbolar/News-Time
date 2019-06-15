@@ -88,7 +88,7 @@ class SearchVC: UIViewController, PullToReach {
         navigationController?.view.backgroundColor = .black
         navigationController?.navigationBar.barStyle = .black
         collectionView.backgroundColor = .black
-        searchController.searchBar.tintColor = .white
+        searchController.searchBar.backgroundColor = .black
         navigationItem.titleView?.tintColor = .white
         self.navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
