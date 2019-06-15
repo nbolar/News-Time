@@ -9,7 +9,8 @@ News Time is an iOS app that uses the [NewsAPI.org](https://newsapi.org) APIs to
 ###### You can switch between light and dark mode by long pressing the bottom tab bar.
 <br>
 
-![newsTimeScreenshots](https://user-images.githubusercontent.com/45484873/59150012-ac42e900-8a25-11e9-96fb-ce8eae520d71.png)
+![newsTimeScreenshots](https://user-images.githubusercontent.com/45484873/59554466-e07d5300-8fab-11e9-9e3d-8c0e8e8fdbaa.png)
+
 ----
 
 ### Note:
