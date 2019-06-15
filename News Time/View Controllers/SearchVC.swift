@@ -68,6 +68,7 @@ class SearchVC: UIViewController, PullToReach {
             tabBarController?.tabBar.isHidden = false
             
         }
+        searchController.searchBar.becomeFirstResponder()
     }
 
     

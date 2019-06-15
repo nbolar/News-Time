@@ -19,6 +19,7 @@ var popoverButton = 0
 var darkMode = 1
 
 class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, PullToReach {
+    
 
     var scrollView: UIScrollView {
         return collectionView
@@ -50,7 +51,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         
         sourcesButton.titleLabel?.lineBreakMode = .byWordWrapping
         sourcesButton.titleLabel?.numberOfLines = 2
-        sourcesButton.setTitle("Sources ⩡", for: .normal)
+        sourcesButton.setTitle("Sources ⌵", for: .normal)
         sourcesButton.target(forAction: #selector(showCountryButton), withSender: nil)
         
 
@@ -74,11 +75,14 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         countryButton.action = #selector(showCountryButton)
         layoutButton.action = #selector(layoutButtonClicked)
         categoryButton.action = #selector(showCategoryButton)
+        
+//        let test = ScalingButton()
+//        test.applyStyle(isHighlighted: true, highlightColor: .red)
 
         navigationItem.title = "News Feed"
         self.navigationItem.rightBarButtonItems = [refreshButton, countryButton]
         self.navigationItem.leftBarButtonItems = [layoutButton, categoryButton]
-        self.activatePullToReach(on: navigationItem, highlightColor: .lightGray)
+        self.activatePullToReach(on: navigationItem)
 
         
         NotificationCenter.default.addObserver(self, selector: #selector(setAlpha), name: NSNotification.Name(rawValue: "alpha"), object: nil)
@@ -224,6 +228,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
         layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
         countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
+        categoryButton.tintColor = .white
         collectionView.backgroundColor = .black
         self.navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -245,6 +250,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
         layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
         countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
+        categoryButton.tintColor = .black
         self.navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
@@ -302,17 +308,20 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         //Configure the presentation controller
         let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier: "PopoverContentController") as? PopoverContentController
         popoverContentController?.modalPresentationStyle = .popover
-        popoverContentController?.preferredContentSize = CGSize(width: 155, height: 200)
+        popoverContentController?.preferredContentSize = CGSize(width: 155, height: 255)
         
         /* 3 */
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .up
-            popoverPresentationController.barButtonItem = self.categoryButton
-            if darkMode == 1{
-                popoverPresentationController.backgroundColor = .black
-            }else{
-                popoverPresentationController.backgroundColor = .white
-            }
+//            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+            popoverPresentationController.sourceView = self.sourcesButton
+            popoverPresentationController.sourceRect = sourcesButton.frame
+            popoverPresentationController.backgroundColor = .clear
+//            if darkMode == 1{
+//                popoverPresentationController.backgroundColor = .clear
+//            }else{
+//                popoverPresentationController.backgroundColor = .clear
+//            }
             popoverPresentationController.delegate = self
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -331,18 +340,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     @IBAction func showCountryPopoverClicked(_ sender: Any) {
         popoverButton = 1
         
-        let barButtonItem = self.navigationItem.rightBarButtonItems?[1]
-        guard let view = barButtonItem?.value(forKey: "view") as? UIView else { return }
-        
-        view.transform = CGAffineTransform(rotationAngle: CGFloat())
-        
-        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
-        rotationAnimation.duration = 1.5
-        rotationAnimation.repeatCount = 1.0
-        
-        view.layer.add(rotationAnimation, forKey: "rotationAnimation")
-        
         //Configure the presentation controller
         let popoverContentController = self.storyboard?.instantiateViewController(withIdentifier: "PopoverContentController") as? PopoverContentController
         popoverContentController?.modalPresentationStyle = .popover
@@ -351,12 +348,15 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         /* 3 */
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .up
-            popoverPresentationController.barButtonItem = self.countryButton
-            if darkMode == 1{
-                popoverPresentationController.backgroundColor = .black
-            }else{
-                popoverPresentationController.backgroundColor = .white
-            }
+//            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+            popoverPresentationController.sourceView = self.sourcesButton
+            popoverPresentationController.sourceRect = sourcesButton.frame
+            popoverPresentationController.backgroundColor = .clear
+//            if darkMode == 1{
+//                popoverPresentationController.backgroundColor = .clear
+//            }else{
+//                popoverPresentationController.backgroundColor = .clear
+//            }
             popoverPresentationController.delegate = self
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -378,18 +378,16 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         /* 3 */
         if let popoverPresentationController = popoverContentController?.popoverPresentationController {
             popoverPresentationController.permittedArrowDirections = .up
-//            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 1)
+//            popoverPresentationController.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
             popoverPresentationController.sourceView = self.sourcesButton
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.delegate = self
-            if darkMode == 1{
-                popoverPresentationController.backgroundColor = .black
-            }else{
-                popoverPresentationController.backgroundColor = .white
-            }
-            
-            
-            
+            popoverPresentationController.backgroundColor = .clear
+//            if darkMode == 1{
+//                popoverPresentationController.backgroundColor = .clear
+//            }else{
+//                popoverPresentationController.backgroundColor = .clear
+//            }
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
             if let popoverController = popoverContentController {
                 
@@ -568,6 +566,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+
         if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0{
             self.view.addSubview(button)
             self.button.isHidden = false
@@ -640,7 +639,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
 extension NewsFeedVC:PopoverContentControllerDelegate {
     func popoverContent(controller: PopoverContentController, didselectItem name: String) {
-        sourcesButton.setTitle(name + " ⩡", for: .normal)
+        sourcesButton.setTitle(name + " ⌵", for: .normal)
         collectionView.isHidden = true
         Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(refreshNewsFeed(_:)), userInfo: nil, repeats: false)
     }
@@ -742,4 +741,13 @@ extension UIColor
         let lum = 0.2126 * r + 0.7152 * g + 0.0722 * b
         return  lum < 0.50 ? true : false
     }
+}
+
+class ScalingButton: UIButton {
+    
+    override func applyStyle(isHighlighted: Bool, highlightColor: UIColor) {
+        let scale: CGFloat = isHighlighted ? 1.5 : 1.0
+        transform = CGAffineTransform(translationX: scale, y: scale)
+    }
+    
 }

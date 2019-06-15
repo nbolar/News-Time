@@ -24,6 +24,9 @@ protocol PopoverContentControllerDelegate:class {
 
 class PopoverContentController: UIViewController {
     private let animations = [AnimationType.from(direction: .bottom, offset: 30.0)]
+    var scrollView: UIScrollView {
+        return tableView
+    }
 
     @IBOutlet weak var tableView: UITableView!
     var delegate:PopoverContentControllerDelegate?
@@ -45,11 +48,17 @@ class PopoverContentController: UIViewController {
             tableView.backgroundColor = .black
             view.backgroundColor = .black
             tableView.separatorColor = .lightGray
+            scrollView.indicatorStyle = .white
+//            tableView.showsVerticalScrollIndicator = true
+            scrollView.showsVerticalScrollIndicator = true
 
         }else{
             tableView.backgroundColor = .white
             view.backgroundColor = .white
             tableView.separatorColor = .lightGray
+            scrollView.indicatorStyle = .black
+//            tableView.showsVerticalScrollIndicator = true
+            scrollView.showsVerticalScrollIndicator = true
         }
     }
     
