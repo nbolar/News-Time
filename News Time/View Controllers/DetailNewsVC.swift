@@ -65,7 +65,7 @@ class DetailNewsVC: UIViewController {
 
 
     override func viewDidAppear(_ animated: Bool) {
-        backButton.tintColor = newsArticleContent.backgroundColor?.isDarkColor == true ? .white : .black
+        backButton.tintColor = .white
         
         let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
         anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)

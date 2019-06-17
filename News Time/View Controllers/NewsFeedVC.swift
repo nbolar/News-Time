@@ -18,6 +18,7 @@ var updatedString : String!
 var layout = 0
 var popoverButton = 0
 var darkMode = 1
+var navTitleName = "Sources"
 
 class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, PullToReach {
     
@@ -53,10 +54,9 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         sourcesButton.titleLabel?.lineBreakMode = .byWordWrapping
         sourcesButton.titleLabel?.numberOfLines = 2
         sourcesButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 14, style: .solid)
-        let navTitle = NSMutableAttributedString(string: "Sources ", attributes:[
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)])
+        let navTitle = NSMutableAttributedString(string: "\(navTitleName) ", attributes:[NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: collectionView.backgroundColor?.isDarkColor == true ? UIColor.white.cgColor : UIColor.black.cgColor])
         
-        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid)]))
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid), NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]))
         sourcesButton.setAttributedTitle(navTitle, for: .normal)
         sourcesButton.target(forAction: #selector(showSourcesButton), withSender: nil)
         
@@ -230,11 +230,14 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.backgroundColor = .clear
         view.backgroundColor = .black
-        sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black, for: .normal)
         refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
         layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
         countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .white : .black
         categoryButton.tintColor = .white
+        let navTitle = NSMutableAttributedString(string: "\(navTitleName) ", attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: UIColor.white.cgColor]) 
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid), NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]))
+        sourcesButton.setAttributedTitle(navTitle, for: .normal)
         collectionView.backgroundColor = .black
         self.navigationController?.navigationBar.largeTitleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
@@ -252,7 +255,10 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         navigationController?.navigationBar.barTintColor = .white
         navigationController?.navigationBar.backgroundColor = .clear
         navigationController?.navigationBar.barStyle = .default
-        sourcesButton.setTitleColor(navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white, for: .normal)
+        let navTitle = NSMutableAttributedString(string: "\(navTitleName) ", attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: UIColor.black.cgColor])
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid), NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]))
+        sourcesButton.setAttributedTitle(navTitle, for: .normal)
         refreshButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
         layoutButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
         countryButton.tintColor = navigationController?.navigationBar.backgroundColor?.isDarkColor == true ? .black : .white
@@ -645,10 +651,11 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
 extension NewsFeedVC:PopoverContentControllerDelegate {
     func popoverContent(controller: PopoverContentController, didselectItem name: String) {
-        let navTitle = NSMutableAttributedString(string: "\(name) ", attributes:[
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)])
+        navTitleName = name
+        let navTitle = NSMutableAttributedString(string: "\(navTitleName) ", attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: collectionView.backgroundColor?.isDarkColor == true ? UIColor.white.cgColor : UIColor.black.cgColor])
         
-        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid)]))
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid), NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]))
         sourcesButton.setAttributedTitle(navTitle, for: .normal)
         collectionView.isHidden = true
         Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(refreshNewsFeed(_:)), userInfo: nil, repeats: false)
@@ -667,15 +674,11 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFeedCell", for: indexPath) as! NewsFeedCell
             cell.configureCell(newsCell: NewsService.instance.newsList[indexPath.item])
-            
-
-            
             return cell
+            
         } else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sectionCell", for: indexPath) as! SectionNewsFeedCell
             cell.configureCell(newsCell: NewsService.instance.newsList[indexPath.item])
-            
-            
             return cell
         }
         
