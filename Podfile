@@ -15,5 +15,6 @@ target 'News Time' do
   pod 'PullToReach'
   pod 'SwipeableTabBarController'
   pod 'ViewAnimator'
+  pod 'FontAwesome.swift'
 
 end

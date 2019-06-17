@@ -11,6 +11,7 @@ import Hero
 import PullToReach
 import SwipeableTabBarController
 import ViewAnimator
+import FontAwesome_swift
 
 var indexSelected: IndexPath!
 var updatedString : String!
@@ -51,8 +52,13 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         
         sourcesButton.titleLabel?.lineBreakMode = .byWordWrapping
         sourcesButton.titleLabel?.numberOfLines = 2
-        sourcesButton.setTitle("Sources ⌵", for: .normal)
-        sourcesButton.target(forAction: #selector(showCountryButton), withSender: nil)
+        sourcesButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 14, style: .solid)
+        let navTitle = NSMutableAttributedString(string: "Sources ", attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)])
+        
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid)]))
+        sourcesButton.setAttributedTitle(navTitle, for: .normal)
+        sourcesButton.target(forAction: #selector(showSourcesButton), withSender: nil)
         
 
         
@@ -639,7 +645,11 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
 extension NewsFeedVC:PopoverContentControllerDelegate {
     func popoverContent(controller: PopoverContentController, didselectItem name: String) {
-        sourcesButton.setTitle(name + " ⌵", for: .normal)
+        let navTitle = NSMutableAttributedString(string: "\(name) ", attributes:[
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold)])
+        
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid)]))
+        sourcesButton.setAttributedTitle(navTitle, for: .normal)
         collectionView.isHidden = true
         Timer.scheduledTimer(timeInterval: 0, target: self, selector: #selector(refreshNewsFeed(_:)), userInfo: nil, repeats: false)
     }

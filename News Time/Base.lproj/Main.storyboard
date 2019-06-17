@@ -234,14 +234,14 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="86" y="7" width="202" height="30"/>
+                            <rect key="frame" x="75" y="7" width="225" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                             <state key="normal" title="Button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
-                                <action selector="showPopoverButtonClicked:" destination="yhG-BZ-NeM" eventType="touchUpInside" id="uCF-ca-7Og"/>
+                                <action selector="showPopoverButtonClicked:" destination="yhG-BZ-NeM" eventType="touchUpInside" id="AL1-jA-leB"/>
                             </connections>
                         </button>
                         <rightBarButtonItems>
@@ -268,7 +268,7 @@
                         <outlet property="countryButton" destination="uKy-Zr-XEy" id="8j8-u1-MEb"/>
                         <outlet property="layoutButton" destination="BcD-KD-dZf" id="UnP-rQ-lZc"/>
                         <outlet property="refreshButton" destination="XLp-Ma-ItU" id="jpS-3O-xgf"/>
-                        <outlet property="sourcesButton" destination="U9c-rK-hSN" id="CQ9-Cx-Bi9"/>
+                        <outlet property="sourcesButton" destination="U9c-rK-hSN" id="H9r-I5-pCS"/>
                         <segue destination="x5T-Nl-CFO" kind="presentation" identifier="detailNewsSegue" id="Nvb-Sh-uIb"/>
                     </connections>
                 </viewController>

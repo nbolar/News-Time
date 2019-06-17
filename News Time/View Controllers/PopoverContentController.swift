@@ -8,6 +8,7 @@
 
 import UIKit
 import ViewAnimator
+import FontAwesome_swift
 
 var datasourceArray = ["abc-news", "al-jazeera-english", "ars-technica", "associated-press", "bbc-news", "bbc-sport", "bloomberg", "business-insider", "buzzfeed", "cbs-news", "cnn"]
 var datasourceArray2 = ["ABC News", "Al Jazeera English", "Ars Technica", "Associated Press", "BBC News", "BBC Sport", "Bloomberg", "Business Insider", "Buzzfeed", "CBS News", "CNN"]
@@ -90,6 +91,7 @@ extension PopoverContentController:UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SourcesCell", for: indexPath)
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
         if popoverButton == 1{
             cell.textLabel?.text = dataCountryArray2[indexPath.row]
         }else if popoverButton == 2{
