@@ -51,14 +51,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         collectionView.reloadData()
         collectionView.alwaysBounceVertical = true
         
-        sourcesButton.titleLabel?.lineBreakMode = .byWordWrapping
-        sourcesButton.titleLabel?.numberOfLines = 2
-        sourcesButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 14, style: .solid)
-        let navTitle = NSMutableAttributedString(string: "\(navTitleName) ", attributes:[NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: collectionView.backgroundColor?.isDarkColor == true ? UIColor.white.cgColor : UIColor.black.cgColor])
-        
-        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid), NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]))
-        sourcesButton.setAttributedTitle(navTitle, for: .normal)
-        sourcesButton.target(forAction: #selector(showSourcesButton), withSender: nil)
         
 
         
@@ -81,9 +73,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         countryButton.action = #selector(showCountryButton)
         layoutButton.action = #selector(layoutButtonClicked)
         categoryButton.action = #selector(showCategoryButton)
-        
-//        let test = ScalingButton()
-//        test.applyStyle(isHighlighted: true, highlightColor: .red)
 
         navigationItem.title = "News Feed"
         self.navigationItem.rightBarButtonItems = [refreshButton, countryButton]
@@ -109,19 +98,12 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         createScrollButton()
         createLabel()
         refreshControlSetup()
+        setupSourcesButton()
 
         // Do any additional setup after loading the view.
         
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        collectionView?.reloadData()
-//        collectionView?.performBatchUpdates({
-//            UIView.animate(views: self.collectionView!.orderedVisibleCells,
-//                           animations: animations, completion: nil)}, completion: nil)
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
-        
         
         let currentDateTime = Date()
         let formatter = DateFormatter()
@@ -158,6 +140,17 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         refreshControl.attributedTitle = NSAttributedString(string: refreshString, attributes: attributes)
         refreshControl.tintColor = .white
         //        collectionView.refreshControl = refreshControl
+    }
+    func setupSourcesButton(){
+        sourcesButton.frame = CGRect(x: 100, y: 7, width: 200, height: 30)
+        sourcesButton.titleLabel?.lineBreakMode = .byTruncatingTail
+        sourcesButton.titleLabel?.numberOfLines = 2
+        sourcesButton.titleLabel?.font = UIFont.fontAwesome(ofSize: 14, style: .solid)
+        let navTitle = NSMutableAttributedString(string: "\(navTitleName) ", attributes:[NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: collectionView.backgroundColor?.isDarkColor == true ? UIColor.white.cgColor : UIColor.black.cgColor])
+        
+        navTitle.append(NSMutableAttributedString(string: "\(String.fontAwesomeIcon(name: .chevronDown)) ", attributes:[NSAttributedString.Key.font: UIFont.fontAwesome(ofSize: 12, style: .solid), NSAttributedString.Key.foregroundColor: UIColor.gray.cgColor]))
+        sourcesButton.setAttributedTitle(navTitle, for: .normal)
+        sourcesButton.target(forAction: #selector(showSourcesButton), withSender: nil)
     }
     
     func createLabel(){
@@ -220,11 +213,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
     }
     
-    
-//    @objc func downloadCompleted(){
-//        print("Download Completed")
-//    }
-    
     func enableDarkMode(){
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.barTintColor = .black
@@ -268,6 +256,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             NSAttributedString.Key.font : UIFont.systemFont(ofSize: 17, weight: .heavy)
         ]
         tabBarController?.tabBar.barTintColor = .white
+        tabBarController?.tabBar.backgroundColor = .clear
         tabBarController?.tabBar.tintColor = .black
         spinner.color = .black
         
@@ -604,7 +593,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         })
     }
     override var prefersStatusBarHidden: Bool{
-        return true
+        return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -719,6 +708,7 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.contentView.alpha = 0.4
         let timeInterval = 0.5
+//        cell?.hero.modifiers = [.useNoSnapshot, .spring(stiffness: 250, damping: 25)]
         cell?.hero.modifiers = [.fade, .translate(x: 0, y: -150, z: 0), .duration(timeInterval)]
         //        cell?.hero.modifiers = [.size(CGSize(width: cell!.bounds.width, height: cell!.bounds.width - 35)), .translate(x: 0, y: -300, z: 0), .fade, .duration(1)]
         self.performSegue(withIdentifier: "detailNewsSegue", sender: cell)
