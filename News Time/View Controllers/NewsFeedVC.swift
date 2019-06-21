@@ -88,6 +88,9 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         longPress.cancelsTouchesInView = false
         longPress.minimumPressDuration = 0.7
         tabBarController?.tabBar.addGestureRecognizer(longPress)
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(NewsFeedVC.doubleTapGesture))
+        doubleTap.numberOfTapsRequired = 2
+        tabBarController?.tabBar.addGestureRecognizer(doubleTap)
         
         if darkMode == 1{
             enableDarkMode()
@@ -130,6 +133,14 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             }
         }
         createLoader()
+        
+    }
+    @objc func doubleTapGesture(){
+        if tabBarController?.selectedIndex == 0{
+            let indexpath = IndexPath(row: 0, section: 0)
+            collectionView.scrollToItem(at: indexpath, at: .top, animated: true)
+        }
+        
         
     }
     
