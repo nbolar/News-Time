@@ -35,9 +35,7 @@
         <scene sceneID="3jZ-yn-pbl">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" hidesBarsOnSwipe="YES" id="e3l-IX-RJa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News Feed" image="baritem" id="yyH-LN-Rjp">
-                        <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="News Feed" image="baritem" id="yyH-LN-Rjp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="TS1-TU-jE2">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -234,7 +232,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U9c-rK-hSN">
-                            <rect key="frame" x="100" y="7" width="175.5" height="30"/>
+                            <rect key="frame" x="96" y="7" width="175.5" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                             <state key="normal" title="Button">
@@ -440,7 +438,7 @@
         <scene sceneID="K5e-L5-EK2">
             <objects>
                 <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" id="QC7-xj-UTt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="search" id="7dP-a4-W5i"/>
+                    <tabBarItem key="tabBarItem" tag="1" systemItem="search" id="7dP-a4-W5i"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" largeTitles="YES" id="jrw-Ig-pTu">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -619,7 +617,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="baritem" width="25" height="25"/>
+        <image name="baritem" width="24" height="28"/>
         <image name="down" width="50" height="50"/>
         <image name="globe" width="16.666666030883789" height="16.666666030883789"/>
         <image name="list" width="16.666666030883789" height="16.666666030883789"/>

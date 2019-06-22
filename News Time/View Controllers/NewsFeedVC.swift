@@ -27,6 +27,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         return collectionView
     }
     
+    
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var layoutButton: UIBarButtonItem!
     @IBOutlet weak var countryButton: UIBarButtonItem!
@@ -44,7 +45,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.scrollsToTop = true
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -102,6 +102,7 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
         createLabel()
         refreshControlSetup()
         setupSourcesButton()
+        
 
         // Do any additional setup after loading the view.
         

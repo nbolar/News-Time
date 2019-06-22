@@ -21,9 +21,7 @@ class SearchVC: UIViewController, PullToReach {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         searchController.searchBar.becomeFirstResponder()
