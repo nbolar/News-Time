@@ -330,11 +330,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             popoverPresentationController.sourceView = self.sourcesButton
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.backgroundColor = .clear
-//            if darkMode == 1{
-//                popoverPresentationController.backgroundColor = .clear
-//            }else{
-//                popoverPresentationController.backgroundColor = .clear
-//            }
             popoverPresentationController.delegate = self
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -365,11 +360,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             popoverPresentationController.sourceView = self.sourcesButton
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.backgroundColor = .clear
-//            if darkMode == 1{
-//                popoverPresentationController.backgroundColor = .clear
-//            }else{
-//                popoverPresentationController.backgroundColor = .clear
-//            }
             popoverPresentationController.delegate = self
             
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
@@ -396,11 +386,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
             popoverPresentationController.sourceRect = sourcesButton.frame
             popoverPresentationController.delegate = self
             popoverPresentationController.backgroundColor = .clear
-//            if darkMode == 1{
-//                popoverPresentationController.backgroundColor = .clear
-//            }else{
-//                popoverPresentationController.backgroundColor = .clear
-//            }
             popoverContentController?.delegate = self as PopoverContentControllerDelegate
             if let popoverController = popoverContentController {
                 
@@ -444,26 +429,6 @@ class NewsFeedVC: UIViewController, UIPopoverPresentationControllerDelegate, Pul
 
     
     @IBAction func refreshButtonClicked(_ sender: Any) {
-//        let anim : CABasicAnimation = CABasicAnimation.init(keyPath: "transform")
-//        anim.timingFunction = CAMediaTimingFunction.init(name: .easeInEaseOut)
-//        anim.duration = 0.8
-//        anim.repeatCount = 2
-//        anim.autoreverses = true
-//        anim.isRemovedOnCompletion = true
-//        anim.toValue = NSValue.init(caTransform3D: CATransform3DMakeScale(1.2, 1.2, 1.2))
-//        label.layer.add(anim, forKey: nil)
-        
-//        let barButtonItem = self.navigationItem.rightBarButtonItems?[0]
-//        guard let view = barButtonItem?.value(forKey: "view") as? UIView else { return }
-//
-//        view.transform = CGAffineTransform(rotationAngle: CGFloat())
-//
-//        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
-//        rotationAnimation.toValue = NSNumber(value: Double.pi * 2.0)
-//        rotationAnimation.duration = 2
-//        rotationAnimation.repeatCount = 0
-//
-//        view.layer.add(rotationAnimation, forKey: "rotationAnimation")
         
         refreshNewsFeed((Any).self)
         refreshButton.isEnabled = false

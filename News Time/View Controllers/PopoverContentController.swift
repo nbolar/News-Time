@@ -48,7 +48,7 @@ class PopoverContentController: UIViewController {
         if darkMode == 1{
             tableView.backgroundColor = .black
             view.backgroundColor = .black
-            tableView.separatorColor = .lightGray
+            tableView.separatorColor = .gray
             scrollView.indicatorStyle = .white
 //            tableView.showsVerticalScrollIndicator = true
             scrollView.showsVerticalScrollIndicator = true
