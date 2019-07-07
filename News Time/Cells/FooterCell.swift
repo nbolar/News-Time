@@ -12,7 +12,7 @@ class FooterCell: UICollectionViewCell {
     @IBOutlet weak var newsAPIImageView: UIImageView!
     
     override func awakeFromNib() {
-        self.newsAPIImageView.layer.cornerRadius = 10
+        self.newsAPIImageView.layer.cornerRadius = 7
     }
     
 }

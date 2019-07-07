@@ -46,7 +46,7 @@ class NewsFeedCell: UICollectionViewCell {
         let imageURL = URL(string: newsCell.imageURL)
         newsImage.sd_setImage(with: imageURL, placeholderImage: UIImage(named: "placeholder"), options: .init(), completed: nil)//        newsImage.alpha = 0.5
         newsHeadlineLabel.text = newsCell.newsHeadline
-        datePostedLabel.text = "◉ \(newsCell.newsProvider)"
+        datePostedLabel.text = "◉ \(newsCell.date)"
         
     }
     

@@ -20,7 +20,7 @@ var datePosted = [String]()
 class NewsList{
     
     fileprivate var _newsHeadline: String!
-    fileprivate var _newsProvider: String!
+    fileprivate var _date: String!
     fileprivate var _imageURL: String!
     
     
@@ -33,11 +33,11 @@ class NewsList{
         }
     }
     
-    var newsProvider: String {
+    var date: String {
         get{
-            return _newsProvider
+            return _date
         } set {
-            _newsProvider = newValue
+            _date = newValue
         }
     }
     
@@ -73,14 +73,14 @@ class NewsList{
                 headlines.append(article["title"].stringValue)
                 contentDescription.append(article["description"].stringValue)
                 content.append(article["content"].stringValue)
-                dayNews.newsProvider = (article["source"]["name"].stringValue)
+                dayNews.date = (article["source"]["name"].stringValue)
                 dayNews.imageURL = article["urlToImage"].stringValue
                 contentURL.append(article["url"].stringValue)
                 images.append(article["urlToImage"].stringValue)
                 
                 
 //                let publishedTime = article["publishedAt"].stringValue
-                dayNews.newsProvider = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
+                dayNews.date = (article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? ""
                 datePosted.append((article["publishedAt"].stringValue.dateFromTimestamp?.relativelyFormatted(short: false)) ?? "")
                 
                 
