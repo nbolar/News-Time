@@ -21,13 +21,13 @@ class SearchNewsCell: UICollectionViewCell {
         // Initialization code
         contentView.layer.cornerRadius = 20.0
         contentView.layer.borderWidth = 2.0
-        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        contentView.layer.borderColor = UIColor.init(white: 1.0, alpha: 0.2).cgColor
         contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor.lightGray.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowRadius = 5
-        layer.shadowOpacity = 1.0
+        layer.shadowColor = UIColor.darkGray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 5)
+        layer.shadowRadius = 2
+        layer.shadowOpacity = 0.5
         layer.masksToBounds = false
         layer.backgroundColor = UIColor.clear.cgColor
         
