@@ -700,6 +700,16 @@ extension NewsFeedVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         return footerView
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.5){
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
+    }
+    
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
 //        return 10.0
 //    }

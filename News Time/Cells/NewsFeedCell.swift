@@ -34,11 +34,6 @@ class NewsFeedCell: UICollectionViewCell {
         layer.backgroundColor = UIColor.clear.cgColor
 //        layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
         
-
-        
-
-        
-
         datePostedLabel.text = "2d"
         datePostedLabel.textColor = .white
 //        newsImage.alpha = 0.7
